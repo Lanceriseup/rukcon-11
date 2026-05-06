@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Brushstroke motif</title>
+<link rel="stylesheet" href="../colors_and_type.css">
+<link href="https://fonts.googleapis.com/css2?family=Caveat+Brush&display=swap" rel="stylesheet">
+<style>
+  body { margin:0; padding: 16px 24px; background: var(--ink-50); font-family: 'Montserrat', sans-serif; }
+  .row { margin-bottom: 14px; }
+  .row:last-child { margin-bottom: 0; }
+  .lbl { font-family: var(--font-mono); font-size: 10px; color: var(--ink-500); text-transform: uppercase; letter-spacing: 0.14em; display: block; margin-bottom: 4px; }
+  .stage {
+    position: relative;
+    width: 480px;
+    height: 130px;
+  }
+  .stroke {
+    position: absolute;
+    inset: 0;
+    background-image: url('../assets/brushstroke-teal-v2.png');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+  }
+  .stroke.gradient { background-image: url('../assets/brushstroke-gradient-v2.png'); }
+  .label {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Caveat Brush', cursive;
+    font-size: 56px;
+    color: white;
+    line-height: 1;
+    transform: rotate(-5deg);
+    pointer-events: none;
+  }
+</style>
+</head>
+<body>
+  <div class="row">
+    <span class="lbl">Solid teal · default</span>
+    <div class="stage"><div class="stroke"></div><div class="label">All In.</div></div>
+  </div>
+  <div class="row">
+    <span class="lbl">Teal → gold gradient · couple-facing</span>
+    <div class="stage"><div class="stroke gradient"></div><div class="label">Together.</div></div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Radii & shadows</title>
+<link rel="stylesheet" href="../colors_and_type.css">
+<style>
+  body { margin:0; padding: 24px; background: var(--ink-50); font-family: var(--font-body); }
+  .grid { display:grid; grid-template-columns: repeat(4, 1fr); gap: 18px; }
+  .cell { display:flex; flex-direction:column; align-items:center; gap: 8px; }
+  .box { width: 90px; height: 56px; background: white; border:1px solid var(--border); }
+  .lbl { font-family: var(--font-mono); font-size: 10px; color: var(--ink-700); }
+  .px  { font-family: var(--font-mono); font-size: 9px;  color: var(--ink-400); }
+  .sh-sm { box-shadow: var(--shadow-sm); }
+  .sh-md { box-shadow: var(--shadow-md); }
+  .sh-lg { box-shadow: var(--shadow-lg); }
+  .sh-gold { box-shadow: var(--shadow-gold); border-color: var(--gold-400); }
+</style>
+</head>
+<body>
+<div class="grid">
+  <div class="cell"><div class="box" style="border-radius:0"></div><span class="lbl">--r-none</span><span class="px">0px</span></div>
+  <div class="cell"><div class="box" style="border-radius:2px"></div><span class="lbl">--r-sm · cards</span><span class="px">2px</span></div>
+  <div class="cell"><div class="box" style="border-radius:4px"></div><span class="lbl">--r-md · buttons</span><span class="px">4px</span></div>
+  <div class="cell"><div class="box" style="border-radius:999px; width:80px;"></div><span class="lbl">--r-pill</span><span class="px">chips only</span></div>
+
+  <div class="cell"><div class="box sh-sm" style="border-radius:2px"></div><span class="lbl">--shadow-sm</span><span class="px">resting</span></div>
+  <div class="cell"><div class="box sh-md" style="border-radius:2px"></div><span class="lbl">--shadow-md</span><span class="px">hover</span></div>
+  <div class="cell"><div class="box sh-lg" style="border-radius:2px"></div><span class="lbl">--shadow-lg</span><span class="px">modal</span></div>
+  <div class="cell"><div class="box sh-gold" style="border-radius:4px"></div><span class="lbl">--shadow-gold</span><span class="px">premium CTA</span></div>
+</div>
+</body>
+</html>

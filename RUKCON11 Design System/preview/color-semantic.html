@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Color — Semantic tokens</title>
+<link rel="stylesheet" href="../colors_and_type.css">
+<style>
+  body { margin:0; padding: 20px; font-family: var(--font-body); background: var(--ink-50); }
+  .grid { display:grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
+  .tok { border:1px solid var(--border); border-radius: var(--r-sm); padding: 12px; background: white; display:flex; gap:10px; align-items:center; }
+  .chip { width: 32px; height: 32px; border-radius: var(--r-sm); border:1px solid rgba(0,0,0,0.08); flex-shrink:0; }
+  .meta { display:flex; flex-direction:column; line-height: 1.2; }
+  .name { font-family: var(--font-mono); font-size: 11px; font-weight: 600; color: var(--ink-900); }
+  .val  { font-family: var(--font-mono); font-size: 10px; color: var(--ink-500); }
+</style>
+</head>
+<body>
+<div class="grid">
+  <div class="tok"><div class="chip" style="background:#C99B30"></div><div class="meta"><span class="name">--accent</span><span class="val">gold-400</span></div></div>
+  <div class="tok"><div class="chip" style="background:#1FA0A8"></div><div class="meta"><span class="name">--accent-2</span><span class="val">teal-400</span></div></div>
+  <div class="tok"><div class="chip" style="background:#141414"></div><div class="meta"><span class="name">--fg</span><span class="val">ink-900</span></div></div>
+  <div class="tok"><div class="chip" style="background:#F5F4F0"></div><div class="meta"><span class="name">--bg</span><span class="val">ink-50 (paper)</span></div></div>
+  <div class="tok"><div class="chip" style="background:#2F8F5C"></div><div class="meta"><span class="name">--success</span><span class="val">#2F8F5C</span></div></div>
+  <div class="tok"><div class="chip" style="background:#B5392B"></div><div class="meta"><span class="name">--danger</span><span class="val">#B5392B</span></div></div>
+  <div class="tok"><div class="chip" style="background:#D4B14A"></div><div class="meta"><span class="name">--warning</span><span class="val">gold-300</span></div></div>
+  <div class="tok"><div class="chip" style="background:#5A5A5E"></div><div class="meta"><span class="name">--fg-2</span><span class="val">muted text</span></div></div>
+</div>
+</body>
+</html>

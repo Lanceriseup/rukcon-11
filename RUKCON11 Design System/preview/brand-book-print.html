@@ -1,0 +1,490 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>RUKCON11 — Design System Brand Book</title>
+<link rel="stylesheet" href="../colors_and_type.css">
+<link href="https://fonts.googleapis.com/css2?family=Caveat+Brush&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; background: white; font-family: 'Montserrat', sans-serif; color: var(--ink-900); }
+
+  .page {
+    width: 11in;
+    min-height: 8.5in;
+    padding: 0.55in 0.6in;
+    page-break-after: always;
+    break-after: page;
+    position: relative;
+    background: var(--ink-50);
+  }
+  .page.dark { background: var(--ink-900); color: var(--ink-50); }
+  .page:last-child { page-break-after: auto; break-after: auto; }
+
+  .page-num {
+    position: absolute;
+    bottom: 0.35in;
+    right: 0.6in;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.18em;
+    color: var(--ink-400);
+  }
+  .dark .page-num { color: var(--ink-300); }
+  .page-mark {
+    position: absolute;
+    bottom: 0.35in;
+    left: 0.6in;
+    font-size: 9px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    font-weight: 600;
+    color: var(--gold-500);
+  }
+  .dark .page-mark { color: var(--gold-300); }
+
+  .eb { font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase; font-weight: 600; color: var(--gold-500); display: block; margin-bottom: 8px; }
+  .dark .eb { color: var(--gold-300); }
+  h1 { font-weight: 900; text-transform: uppercase; font-size: 64px; line-height: 0.95; letter-spacing: -0.02em; margin: 0 0 18px; }
+  h2 { font-weight: 800; text-transform: uppercase; font-size: 32px; line-height: 1.05; margin: 0 0 12px; }
+  h3 { font-weight: 700; text-transform: uppercase; font-size: 18px; line-height: 1.1; letter-spacing: 0.02em; margin: 0 0 8px; }
+  p  { font-size: 12px; line-height: 1.55; margin: 0 0 10px; max-width: 6.5in; }
+  .dark p { color: var(--ink-200); }
+  ul { margin: 0 0 10px; padding-left: 18px; font-size: 12px; line-height: 1.55; }
+  ul li { margin-bottom: 4px; }
+  hr.gold { border: 0; border-top: 2px solid var(--gold-400); margin: 14px 0 18px; width: 60px; }
+
+  /* ----- COVER ----- */
+  .cover {
+    background: var(--ink-900);
+    color: var(--ink-50);
+    display: flex; flex-direction: column; justify-content: space-between;
+  }
+  .cover .logo-mark { width: 4.2in; }
+  .cover .lede { font-size: 14px; line-height: 1.55; max-width: 5in; color: var(--ink-200); }
+  .cover .meta-row { display:flex; gap: 24px; align-items:center; margin-top: 18px; }
+  .cover .meta-row .pill { font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.2em; padding: 6px 12px; border: 1px solid var(--gold-400); color: var(--gold-300); border-radius: 999px; text-transform: uppercase; }
+
+  /* ----- TWO-COL ----- */
+  .two { display: grid; grid-template-columns: 1.05fr 1fr; gap: 32px; }
+  .three { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 18px; }
+
+  /* ----- COLOR ----- */
+  .swatches { display: grid; grid-template-columns: repeat(8, 1fr); gap: 8px; margin-bottom: 22px; }
+  .swatch { aspect-ratio: 1.1/1; border-radius: 2px; padding: 8px 10px; display:flex; flex-direction:column; justify-content:flex-end; border: 1px solid rgba(0,0,0,0.08); position: relative; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  .swatch.brand::after { content: "BRAND"; position: absolute; top: 6px; right: 6px; font-size: 7px; letter-spacing: 0.14em; font-weight: 700; padding: 2px 4px; background: rgba(255,255,255,0.6); color: var(--ink-950); border-radius: 1px; }
+  .swatch .num { font-family: 'JetBrains Mono', monospace; font-size: 10px; font-weight: 600; }
+  .swatch .hex { font-family: 'JetBrains Mono', monospace; font-size: 9px; opacity: 0.85; }
+  .swatch.dark .num, .swatch.dark .hex { color: white; }
+  .scale-label { font-size: 11px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; color: var(--ink-700); margin-bottom: 8px; }
+
+  /* ----- TYPE ----- */
+  .type-row { display:flex; align-items: baseline; gap: 18px; padding: 8px 0; border-bottom: 1px dashed rgba(0,0,0,0.10); }
+  .type-row:last-child { border: 0; }
+  .type-row .lbl { font-family: 'JetBrains Mono', monospace; font-size: 9px; color: var(--ink-500); width: 110px; flex-shrink: 0; letter-spacing: 0.08em; }
+  .weights .row { display:flex; align-items: baseline; gap: 14px; padding: 4px 0; }
+  .weights .row .lbl { font-family: 'JetBrains Mono', monospace; font-size: 9px; color: var(--ink-500); width: 100px; flex-shrink: 0; }
+  .weights .sample { font-size: 18px; }
+
+  /* ----- BRUSHSTROKE ----- */
+  .brush-stage { position: relative; height: 110px; width: 100%; max-width: 5.5in; margin-top: 8px; }
+  .brush-stage .stroke { position: absolute; inset: 0; background-repeat: no-repeat; background-position: center; background-size: contain; }
+  .brush-stage .stroke.teal { background-image: url('../assets/brushstroke-teal-v2.png'); }
+  .brush-stage .stroke.grad { background-image: url('../assets/brushstroke-gradient-v2.png'); }
+  .brush-stage .label { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; font-family: 'Caveat Brush', cursive; font-size: 48px; color: white; transform: rotate(-5deg); }
+
+  /* ----- COMPONENTS ----- */
+  .btn { font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; font-size: 11px; padding: 9px 16px; border-radius: 4px; border: 1px solid transparent; display: inline-block; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  .btn-primary { background: var(--gold-400); color: var(--ink-950); }
+  .btn-secondary { background: var(--teal-400); color: white; }
+  .btn-ghost { background: transparent; color: var(--ink-900); border-color: var(--ink-900); }
+
+  .card-spec { background: white; border: 1px solid var(--border); border-radius: 2px; padding: 14px 16px; position: relative; }
+  .card-spec.premium { border-color: var(--gold-400); }
+  .card-spec.premium::before { content:""; position:absolute; top:0; left:0; right:0; height:3px; background: var(--gold-400); -webkit-print-color-adjust: exact; print-color-adjust: exact;}
+  .card-spec.partner::before { content:""; position:absolute; top:0; left:0; right:0; height:3px; background: var(--teal-400); -webkit-print-color-adjust: exact; print-color-adjust: exact;}
+  .card-spec .ce { font-size: 8px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold-500); font-weight: 600; margin-bottom: 4px; }
+  .card-spec.partner .ce { color: var(--teal-500); }
+  .card-spec h4 { font-weight: 800; font-size: 16px; text-transform: uppercase; margin: 0 0 4px; line-height: 1.1; }
+  .card-spec p { font-size: 11px; margin: 0; line-height: 1.4; color: var(--ink-700); }
+
+  .badge { font-size: 9px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; padding: 4px 10px; border-radius: 999px; border: 1px solid transparent; display: inline-block; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  .badge.gold { background: var(--gold-100); color: var(--gold-700); border-color: var(--gold-300); }
+  .badge.teal { background: var(--teal-50); color: var(--teal-700); border-color: var(--teal-300); }
+  .badge.foil { background: var(--gold-400); color: var(--ink-950); }
+  .badge.ink  { background: var(--ink-900); color: var(--gold-300); }
+  .badge.ghost { background: transparent; color: var(--ink-700); border-color: var(--ink-300); }
+
+  /* ----- VOICE ----- */
+  .voice-quote { font-weight: 800; text-transform: uppercase; font-size: 22px; line-height: 1.05; margin: 0 0 6px; max-width: 6in; }
+  .voice-sub { font-size: 12px; color: var(--ink-200); max-width: 6in; margin-bottom: 14px; line-height: 1.55; }
+  .pair { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; font-size: 11px; line-height: 1.45; }
+  .pair .col h3 { font-size: 10px; letter-spacing: 0.18em; margin-bottom: 6px; }
+  .pair .col.do h3 { color: var(--success); }
+  .pair .col.dont h3 { color: var(--danger); }
+  .pair .col ul { padding-left: 14px; }
+
+  /* ----- SPACING / RADII ----- */
+  .space-row { display:flex; align-items:center; gap: 12px; padding: 4px 0; font-size: 11px; }
+  .space-row .tok { font-family: 'JetBrains Mono', monospace; width: 70px; color: var(--ink-700); }
+  .space-row .px { font-family: 'JetBrains Mono', monospace; width: 44px; color: var(--ink-400); font-size: 10px; }
+  .space-row .bar { height: 10px; background: var(--gold-400); border-radius: 1px; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  .radii { display:flex; gap: 18px; }
+  .radii .cell { display:flex; flex-direction:column; align-items:center; gap: 6px; font-size: 9px; font-family: 'JetBrains Mono', monospace; }
+  .radii .box { width: 70px; height: 44px; background: var(--ink-900); -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+
+  /* ----- INDEX TABLE ----- */
+  table.idx { width: 100%; border-collapse: collapse; font-size: 11px; }
+  table.idx td { padding: 6px 8px; border-bottom: 1px solid var(--border); vertical-align: top; }
+  table.idx td:first-child { font-family: 'JetBrains Mono', monospace; color: var(--ink-700); width: 2.4in; }
+
+  /* ----- LOGO LOCKUP ----- */
+  .logo-pair { display: grid; grid-template-columns: 1fr 1fr; min-height: 2.6in; border: 1px solid var(--border); }
+  .logo-pair > div { display:flex; align-items:center; justify-content:center; padding: 18px; position: relative; }
+  .logo-pair .light { background: var(--ink-50); }
+  .logo-pair .dark  { background: var(--ink-900); }
+  .logo-pair img { max-width: 100%; max-height: 1.9in; object-fit: contain; }
+  .logo-pair .corner-lbl { position: absolute; top: 8px; left: 10px; font-size: 8px; letter-spacing: 0.2em; text-transform: uppercase; font-weight: 600; }
+  .logo-pair .light .corner-lbl { color: var(--ink-500); }
+  .logo-pair .dark  .corner-lbl { color: var(--ink-300); }
+
+  /* ----- CAVEATS ----- */
+  ol.caveats { font-size: 12px; line-height: 1.55; padding-left: 20px; }
+  ol.caveats li { margin-bottom: 8px; }
+
+  @page { size: 11in 8.5in; margin: 0; }
+  @media print {
+    html, body { background: white; }
+    .page { box-shadow: none; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ============= COVER ============= -->
+<section class="page cover">
+  <div>
+    <span class="eb" style="color: var(--gold-300)">RUKCON11 · Brand book · v1</span>
+    <img class="logo-mark" src="../assets/logo-primary-dark.png" alt="RUKCON11 ALL IN" style="margin-top: 22px;">
+  </div>
+  <div>
+    <p class="lede">A high-stakes gathering of high-powered businessmen and their wives. Premium, but with grit. Masculine-first, with the women in the room recognized as equal partners — never an afterthought.</p>
+    <div class="meta-row">
+      <span class="pill">Eleven · 2026</span>
+      <span class="pill">Brand Foundations</span>
+      <span class="pill">For internal use</span>
+    </div>
+  </div>
+  <span class="page-num" style="color: var(--ink-300)">01</span>
+</section>
+
+<!-- ============= INDEX / OVERVIEW ============= -->
+<section class="page">
+  <span class="eb">Section 01</span>
+  <h1>The brand at a glance.</h1>
+  <hr class="gold">
+  <div class="two">
+    <div>
+      <p><strong>RUKCON11</strong> is the eleventh edition of an annual, invitation-only convention for top-performing entrepreneurs, operators, and executives. The "ALL IN" tag signals total commitment — chips on the table, no hedge.</p>
+      <p>The visual identity is built around three forces:</p>
+      <ul>
+        <li><strong>GOLD</strong> — primary. Earned, not flashy. Aged-coin gold, never neon.</li>
+        <li><strong>TEAL</strong> — supporting. The brushstroke. Sun-bleached, slightly Caribbean. Lets the wives' presence cut through the masculine register.</li>
+        <li><strong>GRIT</strong> — texture, brushstroke marks, condensed type, almost-square corners. We are not a SaaS dashboard.</li>
+      </ul>
+    </div>
+    <div>
+      <h3>System index</h3>
+      <table class="idx">
+        <tr><td>README.md</td><td>Brand, content, visual, iconography</td></tr>
+        <tr><td>SKILL.md</td><td>Agent skill manifest</td></tr>
+        <tr><td>colors_and_type.css</td><td>All CSS variables &amp; semantic styles</td></tr>
+        <tr><td>assets/</td><td>Logos, brushstroke art, fonts</td></tr>
+        <tr><td>preview/</td><td>Specimen cards (registered)</td></tr>
+      </table>
+    </div>
+  </div>
+  <span class="page-mark">RUKCON11 · Overview</span>
+  <span class="page-num">02</span>
+</section>
+
+<!-- ============= LOGO ============= -->
+<section class="page">
+  <span class="eb">Section 02 · Logo</span>
+  <h1>Primary logo.</h1>
+  <hr class="gold">
+  <div class="logo-pair">
+    <div class="light"><span class="corner-lbl">On Paper</span><img src="../assets/logo-primary-light.png" alt=""></div>
+    <div class="dark"><span class="corner-lbl">On Ink</span><img src="../assets/logo-primary-dark.png" alt=""></div>
+  </div>
+  <div class="two" style="margin-top: 20px;">
+    <div>
+      <h3>Clear space &amp; minimum size</h3>
+      <p>A <code>RUKCON</code> cap-height of clear space on all sides. Minimum size: 120px wide on screen, 1″ wide in print.</p>
+    </div>
+    <div>
+      <h3>Never</h3>
+      <p>Rotate, recolor, stretch, swap script for a different font, or place on a busy photo without a 60% ink scrim.</p>
+    </div>
+  </div>
+  <span class="page-mark">Logo · Primary</span>
+  <span class="page-num">03</span>
+</section>
+
+<!-- ============= BRUSHSTROKE ============= -->
+<section class="page">
+  <span class="eb">Section 03 · Signature motif</span>
+  <h1>The brushstroke.</h1>
+  <hr class="gold">
+  <p>The brushstroke is the signature graphic motif. Two flavors. Use sparingly — once per hero, never as wallpaper.</p>
+  <div style="margin-top: 18px;">
+    <span class="scale-label">Solid teal · default</span>
+    <div class="brush-stage"><div class="stroke teal"></div><div class="label">All In.</div></div>
+  </div>
+  <div style="margin-top: 18px;">
+    <span class="scale-label">Teal → gold gradient · couple-facing</span>
+    <div class="brush-stage"><div class="stroke grad"></div><div class="label">Together.</div></div>
+  </div>
+  <span class="page-mark">Brushstroke</span>
+  <span class="page-num">04</span>
+</section>
+
+<!-- ============= COLOR ============= -->
+<section class="page">
+  <span class="eb">Section 04 · Color</span>
+  <h1>Gold leads. Teal supports. Ink anchors.</h1>
+  <hr class="gold">
+  <p>~60% ink (black/paper), 25% gold, 12% teal, 3% accent. Teal is never the primary on a hero — it's a brushstroke mark, an underline, an accent rule, or a single CTA.</p>
+
+  <span class="scale-label" style="margin-top: 16px;">Gold</span>
+  <div class="swatches">
+    <div class="swatch" style="background:#FBF4E0"><span class="num">50</span><span class="hex">#FBF4E0</span></div>
+    <div class="swatch" style="background:#F1E1A8"><span class="num">100</span><span class="hex">#F1E1A8</span></div>
+    <div class="swatch" style="background:#E5CB76"><span class="num">200</span><span class="hex">#E5CB76</span></div>
+    <div class="swatch" style="background:#D4B14A"><span class="num">300</span><span class="hex">#D4B14A</span></div>
+    <div class="swatch brand" style="background:#C99B30"><span class="num">400</span><span class="hex">#C99B30</span></div>
+    <div class="swatch dark" style="background:#B8881F"><span class="num">500</span><span class="hex">#B8881F</span></div>
+    <div class="swatch dark" style="background:#8E6814"><span class="num">600</span><span class="hex">#8E6814</span></div>
+    <div class="swatch dark" style="background:#5E440B"><span class="num">700</span><span class="hex">#5E440B</span></div>
+  </div>
+
+  <span class="scale-label">Teal</span>
+  <div class="swatches">
+    <div class="swatch" style="background:#E2F3F4"><span class="num">50</span><span class="hex">#E2F3F4</span></div>
+    <div class="swatch" style="background:#B0DEE0"><span class="num">100</span><span class="hex">#B0DEE0</span></div>
+    <div class="swatch" style="background:#7BC6CB"><span class="num">200</span><span class="hex">#7BC6CB</span></div>
+    <div class="swatch" style="background:#46AEB4"><span class="num">300</span><span class="hex">#46AEB4</span></div>
+    <div class="swatch brand dark" style="background:#1FA0A8"><span class="num">400</span><span class="hex">#1FA0A8</span></div>
+    <div class="swatch dark" style="background:#168891"><span class="num">500</span><span class="hex">#168891</span></div>
+    <div class="swatch dark" style="background:#0F6970"><span class="num">600</span><span class="hex">#0F6970</span></div>
+    <div class="swatch dark" style="background:#094249"><span class="num">700</span><span class="hex">#094249</span></div>
+  </div>
+
+  <span class="scale-label">Ink (neutrals)</span>
+  <div class="swatches">
+    <div class="swatch dark" style="background:#0A0A0B"><span class="num">950</span><span class="hex">#0A0A0B</span></div>
+    <div class="swatch dark" style="background:#141414"><span class="num">900</span><span class="hex">#141414</span></div>
+    <div class="swatch dark" style="background:#2D2D2F"><span class="num">700</span><span class="hex">#2D2D2F</span></div>
+    <div class="swatch dark" style="background:#5A5A5E"><span class="num">500</span><span class="hex">#5A5A5E</span></div>
+    <div class="swatch" style="background:#A3A3A8"><span class="num">300</span><span class="hex">#A3A3A8</span></div>
+    <div class="swatch" style="background:#E8E8E9"><span class="num">100</span><span class="hex">#E8E8E9</span></div>
+    <div class="swatch" style="background:#F5F4F0"><span class="num">50</span><span class="hex">#F5F4F0</span></div>
+    <div class="swatch" style="background:#FFFFFF"><span class="num">0</span><span class="hex">#FFFFFF</span></div>
+  </div>
+  <span class="page-mark">Color · Palette</span>
+  <span class="page-num">05</span>
+</section>
+
+<!-- ============= TYPE ============= -->
+<section class="page">
+  <span class="eb">Section 05 · Typography</span>
+  <h1>Montserrat. Across the board.</h1>
+  <hr class="gold">
+  <p>The brand face is Montserrat — full weight range. <strong>900 Black uppercase</strong> for hero headlines and the RUKCON wordmark, <strong>800 ExtraBold</strong> for section titles, <strong>500 Medium</strong> for ledes &amp; eyebrows, <strong>400 Regular</strong> for body. Caveat Brush is the supporting script for short accent words. JetBrains Mono is the mono.</p>
+
+  <div class="two" style="margin-top: 16px;">
+    <div>
+      <h3 style="margin-bottom: 6px;">Hierarchy</h3>
+      <div class="type-row"><span class="lbl">H1 / 900</span><span style="font-weight:900; text-transform:uppercase; font-size:32px; line-height:1; letter-spacing:-0.02em;">Eleven years.</span></div>
+      <div class="type-row"><span class="lbl">H2 / 800</span><span style="font-weight:800; text-transform:uppercase; font-size:22px;">Section heading</span></div>
+      <div class="type-row"><span class="lbl">Lede / 500</span><span style="font-weight:500; font-size:13px;">No panels. No badges.</span></div>
+      <div class="type-row"><span class="lbl">Body / 400</span><span style="font-weight:400; font-size:11px; color:var(--ink-700);">Two seats over.</span></div>
+      <div class="type-row"><span class="lbl">Eyebrow</span><span style="font-weight:600; font-size:9px; letter-spacing:0.18em; text-transform:uppercase; color:var(--gold-500);">Sept 14 · Aspen</span></div>
+      <div class="type-row"><span class="lbl">Script</span><span style="font-family:'Caveat Brush', cursive; font-size:30px; transform:rotate(-3deg); display:inline-block;">All In</span></div>
+    </div>
+    <div class="weights">
+      <h3 style="margin-bottom: 6px;">Weight ladder</h3>
+      <div class="row"><span class="lbl">100 · Thin</span><span class="sample" style="font-weight:100">RUKCON Eleven</span></div>
+      <div class="row"><span class="lbl">300 · Light</span><span class="sample" style="font-weight:300">RUKCON Eleven</span></div>
+      <div class="row"><span class="lbl">400 · Regular</span><span class="sample" style="font-weight:400">RUKCON Eleven</span></div>
+      <div class="row"><span class="lbl">500 · Medium</span><span class="sample" style="font-weight:500">RUKCON Eleven</span></div>
+      <div class="row"><span class="lbl">600 · SemiBold</span><span class="sample" style="font-weight:600">RUKCON Eleven</span></div>
+      <div class="row"><span class="lbl">700 · Bold</span><span class="sample" style="font-weight:700">RUKCON Eleven</span></div>
+      <div class="row"><span class="lbl">800 · ExtraBold</span><span class="sample" style="font-weight:800">RUKCON Eleven</span></div>
+      <div class="row"><span class="lbl">900 · Black</span><span class="sample" style="font-weight:900">RUKCON Eleven</span></div>
+    </div>
+  </div>
+  <span class="page-mark">Type · Montserrat</span>
+  <span class="page-num">06</span>
+</section>
+
+<!-- ============= SPACING / RADII / SHADOWS ============= -->
+<section class="page">
+  <span class="eb">Section 06 · Geometry</span>
+  <h1>Tight grid. Almost-square corners.</h1>
+  <hr class="gold">
+  <div class="two">
+    <div>
+      <h3>Spacing scale (8-pt grid)</h3>
+      <div class="space-row"><span class="tok">--s-1</span><span class="px">4px</span><div class="bar" style="width:4px"></div></div>
+      <div class="space-row"><span class="tok">--s-2</span><span class="px">8px</span><div class="bar" style="width:8px"></div></div>
+      <div class="space-row"><span class="tok">--s-3</span><span class="px">12px</span><div class="bar" style="width:12px"></div></div>
+      <div class="space-row"><span class="tok">--s-4</span><span class="px">16px</span><div class="bar" style="width:16px"></div></div>
+      <div class="space-row"><span class="tok">--s-5</span><span class="px">24px</span><div class="bar" style="width:24px"></div></div>
+      <div class="space-row"><span class="tok">--s-6</span><span class="px">32px</span><div class="bar" style="width:32px"></div></div>
+      <div class="space-row"><span class="tok">--s-7</span><span class="px">48px</span><div class="bar" style="width:48px"></div></div>
+      <div class="space-row"><span class="tok">--s-8</span><span class="px">64px</span><div class="bar" style="width:64px"></div></div>
+      <div class="space-row"><span class="tok">--s-9</span><span class="px">96px</span><div class="bar" style="width:96px; background: var(--teal-400);"></div></div>
+    </div>
+    <div>
+      <h3>Corner radii</h3>
+      <div class="radii">
+        <div class="cell"><div class="box" style="border-radius:0"></div><span>--r-none</span><span style="color: var(--ink-400)">0px</span></div>
+        <div class="cell"><div class="box" style="border-radius:2px"></div><span>--r-sm</span><span style="color: var(--ink-400)">cards</span></div>
+        <div class="cell"><div class="box" style="background: var(--gold-400); border-radius:4px"></div><span>--r-md</span><span style="color: var(--ink-400)">buttons</span></div>
+        <div class="cell"><div class="box" style="border-radius:999px; width:60px;"></div><span>--r-pill</span><span style="color: var(--ink-400)">chips</span></div>
+      </div>
+      <h3 style="margin-top: 22px;">Shadows · restrained</h3>
+      <div class="three" style="gap:14px;">
+        <div style="text-align:center"><div style="background:white;border:1px solid var(--border);height:44px;border-radius:2px;box-shadow: 0 1px 2px rgba(10,10,10,0.10);"></div><div style="font-family:'JetBrains Mono',monospace; font-size:9px; margin-top:6px;">--shadow-sm</div></div>
+        <div style="text-align:center"><div style="background:white;border:1px solid var(--border);height:44px;border-radius:2px;box-shadow: 0 4px 14px rgba(10,10,10,0.14);"></div><div style="font-family:'JetBrains Mono',monospace; font-size:9px; margin-top:6px;">--shadow-md</div></div>
+        <div style="text-align:center"><div style="background:white;border:1px solid var(--gold-400);height:44px;border-radius:4px;box-shadow: 0 8px 24px -6px rgba(201,155,48,0.45);"></div><div style="font-family:'JetBrains Mono',monospace; font-size:9px; margin-top:6px;">--shadow-gold</div></div>
+      </div>
+      <p style="margin-top: 14px; font-size: 11px; color: var(--ink-700);">Almost-square corners (2–4px) keep RUKCON out of consumer-app territory. Pill radius is for tag chips only. <code>--shadow-gold</code> is reserved for the highest-tier CTA — never decorative.</p>
+    </div>
+  </div>
+  <span class="page-mark">Geometry</span>
+  <span class="page-num">07</span>
+</section>
+
+<!-- ============= COMPONENTS ============= -->
+<section class="page">
+  <span class="eb">Section 07 · Components</span>
+  <h1>Buttons. Cards. Badges.</h1>
+  <hr class="gold">
+  <div class="two">
+    <div>
+      <h3>Buttons</h3>
+      <div style="display:flex; gap:10px; flex-wrap:wrap; margin-bottom: 18px;">
+        <span class="btn btn-primary">Reserve Seat</span>
+        <span class="btn btn-secondary">Bring Partner</span>
+        <span class="btn btn-ghost">View Agenda</span>
+      </div>
+      <h3>Badges &amp; tiers</h3>
+      <div style="display:flex; gap:6px; flex-wrap:wrap; margin-bottom: 10px;">
+        <span class="badge foil">Founders' table</span>
+        <span class="badge gold">Operator</span>
+        <span class="badge teal">Partner</span>
+        <span class="badge ghost">Guest</span>
+      </div>
+      <div style="display:flex; gap:6px; flex-wrap:wrap;">
+        <span class="badge ink">Confirmed</span>
+        <span class="badge ghost">Waitlist</span>
+        <span class="badge teal">Couples Track</span>
+      </div>
+    </div>
+    <div>
+      <h3>Cards</h3>
+      <div style="display:flex; flex-direction: column; gap: 10px;">
+        <div class="card-spec premium">
+          <div class="ce">Premium · Gold rail</div>
+          <h4>Founders' Table</h4>
+          <p>Twenty seats. Closed-door. The conversation you flew in for.</p>
+        </div>
+        <div class="card-spec partner">
+          <div class="ce">Partners in the room · Teal rail</div>
+          <h4>Riverside Morning</h4>
+          <p>Hosted breakfast and a walking session — built for conversation, not optics.</p>
+        </div>
+      </div>
+      <p style="margin-top: 14px; font-size: 11px;">Cards have a 1px hairline border, 2px corner radius, and an optional 4px-tall accent rail along the <strong>top</strong> edge. Never a left-rail accent — that's an AI-slop trope.</p>
+    </div>
+  </div>
+  <span class="page-mark">Components</span>
+  <span class="page-num">08</span>
+</section>
+
+<!-- ============= VOICE ============= -->
+<section class="page dark">
+  <span class="eb" style="color: var(--gold-300)">Section 08 · Voice</span>
+  <h1 style="color: white;">Direct. Earned. A little salty.</h1>
+  <hr class="gold">
+  <p style="color: var(--ink-200); max-width: 6.6in;">RUKCON11 talks to people who run things. Don't explain the obvious. Don't hedge. The reader has a P&amp;L and a calendar that's already on fire — respect both.</p>
+
+  <div style="margin-top: 22px; padding: 18px 22px; border-left: 3px solid var(--gold-400); background: rgba(255,255,255,0.03);">
+    <p class="voice-quote">You're not here to network.</p>
+    <p class="voice-sub">You're here because the people you needed to meet four years ago are sitting two seats over.</p>
+    <p class="voice-quote" style="margin-top: 6px;">Three days. No panels.</p>
+    <p class="voice-sub">No badges that say "VP of Synergy." Bring the person you'd call from a foxhole.</p>
+  </div>
+
+  <div class="pair" style="margin-top: 22px; color: var(--ink-200);">
+    <div class="col do">
+      <h3>DO</h3>
+      <ul>
+        <li>"You're at the table."</li>
+        <li>"Eleven years. One room."</li>
+        <li>"Bring the person you'd call from a foxhole."</li>
+        <li>Em-dashes. Periods after display lines.</li>
+        <li>"Couples" or "partners in the room."</li>
+      </ul>
+    </div>
+    <div class="col dont">
+      <h3>DON'T</h3>
+      <ul>
+        <li>"Join us for an unforgettable journey of growth."</li>
+        <li>"Unlock your full potential, surrounded by like-minded leaders."</li>
+        <li>"Bring your spouse along!"</li>
+        <li>Synergize. Leverage. Unlock.</li>
+        <li>Emoji. Exclamation marks. Hedge words.</li>
+      </ul>
+    </div>
+  </div>
+  <span class="page-mark">Voice</span>
+  <span class="page-num" style="color: var(--ink-300)">09</span>
+</section>
+
+<!-- ============= ICONOGRAPHY + CAVEATS ============= -->
+<section class="page">
+  <span class="eb">Section 09 · Iconography &amp; caveats</span>
+  <h1>Outlined. 1.5px. Sparingly used.</h1>
+  <hr class="gold">
+  <div class="two">
+    <div>
+      <h3>Iconography</h3>
+      <p>Outlined, 1.5px stroke, square caps, 24×24 base. Library: <strong>Lucide</strong>. Icons inherit <code>--fg</code> by default; <code>--accent</code> (gold) for emphasis; never paint icons teal except for nav-active states on partner-facing surfaces.</p>
+      <ul>
+        <li>Use for: agenda items, room markers, dietary flags.</li>
+        <li>Don't decorate headlines.</li>
+        <li>Don't replace words a senior reader can read.</li>
+      </ul>
+      <h3 style="margin-top: 14px;">Emoji &amp; unicode</h3>
+      <p><strong>No emoji</strong> in product UI. Acceptable separators: <code>·</code> (mid-dot), <code>—</code> (em-dash). Never bullet <code>•</code>.</p>
+    </div>
+    <div>
+      <h3>Caveats — please review</h3>
+      <ol class="caveats">
+        <li><strong>No source codebase or Figma</strong> provided — system is logo-derived.</li>
+        <li><strong>Brand font confirmed: Montserrat.</strong> "ALL IN" hand-lettering remains custom art — never re-typeset.</li>
+        <li><strong>Iconography defaulted to Lucide.</strong> Confirm or send a set.</li>
+        <li><strong>No UI kit or slide template generated</strong> — no product surface was provided. Send one and we'll build against real source.</li>
+        <li><strong>Voice rules are speculative</strong> — derived from the "ALL IN" tagline. Real samples will sharpen this fast.</li>
+      </ol>
+    </div>
+  </div>
+  <span class="page-mark">Iconography · Caveats</span>
+  <span class="page-num">10</span>
+</section>
+
+</body>
+</html>

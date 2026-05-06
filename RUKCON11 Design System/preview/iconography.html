@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Iconography — Lucide</title>
+<link rel="stylesheet" href="../colors_and_type.css">
+<script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+<style>
+  body { margin:0; padding: 22px; background: var(--ink-50); font-family: var(--font-body); }
+  .grid { display:grid; grid-template-columns: repeat(8, 1fr); gap: 14px 10px; }
+  .cell { display:flex; flex-direction:column; align-items:center; gap: 6px; }
+  .icon { color: var(--ink-900); }
+  .icon.gold { color: var(--gold-500); }
+  .lbl { font-family: var(--font-mono); font-size: 9px; color: var(--ink-500); }
+  .note { font-family: var(--font-mono); font-size: 10px; color: var(--ink-500); margin-top: 14px; text-align:center; }
+</style>
+</head>
+<body>
+<div class="grid">
+  <div class="cell"><i data-lucide="award" class="icon gold"></i><span class="lbl">award</span></div>
+  <div class="cell"><i data-lucide="calendar" class="icon"></i><span class="lbl">calendar</span></div>
+  <div class="cell"><i data-lucide="map-pin" class="icon"></i><span class="lbl">map-pin</span></div>
+  <div class="cell"><i data-lucide="users" class="icon"></i><span class="lbl">users</span></div>
+  <div class="cell"><i data-lucide="key-round" class="icon gold"></i><span class="lbl">key</span></div>
+  <div class="cell"><i data-lucide="utensils" class="icon"></i><span class="lbl">dining</span></div>
+  <div class="cell"><i data-lucide="mic" class="icon"></i><span class="lbl">mic</span></div>
+  <div class="cell"><i data-lucide="arrow-right" class="icon gold"></i><span class="lbl">arrow</span></div>
+</div>
+<p class="note">Lucide · 1.5px stroke · 24px base · inherits --fg or --accent</p>
+<script>lucide.createIcons();</script>
+</body>
+</html>

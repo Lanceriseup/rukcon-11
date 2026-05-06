@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Color — Gold scale</title>
+<link rel="stylesheet" href="../colors_and_type.css">
+<style>
+  body { margin:0; padding: 20px; font-family: var(--font-body); background: var(--ink-50); }
+  .row { display:grid; grid-template-columns: repeat(8, 1fr); gap: 10px; }
+  .swatch { aspect-ratio: 1.05/1; border-radius: var(--r-sm); display:flex; flex-direction:column; justify-content:flex-end; padding: 8px 10px; border:1px solid rgba(0,0,0,0.08); position:relative; }
+  .swatch.brand::after { content:"BRAND"; position:absolute; top:8px; right:8px; font-size: 9px; letter-spacing: 0.14em; font-weight: 700; color: var(--ink-950); background: rgba(255,255,255,0.55); padding: 2px 5px; border-radius: 2px;}
+  .swatch .num { font-family: var(--font-mono); font-size: 11px; font-weight: 600; }
+  .swatch .hex { font-family: var(--font-mono); font-size: 10px; opacity: 0.85; }
+  .dark .num, .dark .hex { color: white; }
+</style>
+</head>
+<body>
+<div class="row">
+  <div class="swatch" style="background:#FBF4E0"><span class="num">50</span><span class="hex">#FBF4E0</span></div>
+  <div class="swatch" style="background:#F1E1A8"><span class="num">100</span><span class="hex">#F1E1A8</span></div>
+  <div class="swatch" style="background:#E5CB76"><span class="num">200</span><span class="hex">#E5CB76</span></div>
+  <div class="swatch" style="background:#D4B14A"><span class="num">300</span><span class="hex">#D4B14A</span></div>
+  <div class="swatch brand" style="background:#C99B30"><span class="num">400</span><span class="hex">#C99B30</span></div>
+  <div class="swatch dark" style="background:#B8881F"><span class="num">500</span><span class="hex">#B8881F</span></div>
+  <div class="swatch dark" style="background:#8E6814"><span class="num">600</span><span class="hex">#8E6814</span></div>
+  <div class="swatch dark" style="background:#5E440B"><span class="num">700</span><span class="hex">#5E440B</span></div>
+</div>
+</body>
+</html>

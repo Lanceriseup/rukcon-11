@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Badges & tags</title>
+<link rel="stylesheet" href="../colors_and_type.css">
+<style>
+  body { margin:0; padding: 22px; background: var(--ink-50); font-family: var(--font-body); }
+  .row { display:flex; gap: 8px; flex-wrap: wrap; margin-bottom: 14px; }
+  .badge { font-family: var(--font-body); font-size: 11px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; padding: 5px 12px; border-radius: 999px; border: 1px solid transparent; }
+  .b-gold { background: var(--gold-100); color: var(--gold-700); border-color: var(--gold-300); }
+  .b-teal { background: var(--teal-50); color: var(--teal-700); border-color: var(--teal-300); }
+  .b-ink  { background: var(--ink-900); color: var(--gold-300); }
+  .b-ghost { background: transparent; color: var(--ink-700); border-color: var(--ink-300); }
+  .b-foil { background: var(--gold-400); color: var(--ink-950); }
+  .lbl { font-family: var(--font-mono); font-size: 10px; color: var(--ink-500); margin-bottom: 6px; display:block; }
+</style>
+</head>
+<body>
+  <span class="lbl">Tiers</span>
+  <div class="row"><span class="badge b-foil">Founders' table</span><span class="badge b-gold">Operator</span><span class="badge b-teal">Partner</span><span class="badge b-ghost">Guest</span></div>
+  <span class="lbl">Status / metadata</span>
+  <div class="row"><span class="badge b-ink">Confirmed</span><span class="badge b-ghost">Waitlist</span><span class="badge b-teal">Couples Track</span></div>
+</body>
+</html>

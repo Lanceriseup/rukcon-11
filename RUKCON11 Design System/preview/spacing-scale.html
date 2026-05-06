@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Spacing scale</title>
+<link rel="stylesheet" href="../colors_and_type.css">
+<style>
+  body { margin:0; padding: 22px; background: var(--ink-50); font-family: var(--font-body); }
+  .row { display:flex; align-items:center; gap: 14px; padding: 6px 0; }
+  .tok { font-family: var(--font-mono); font-size: 11px; color: var(--ink-700); width: 78px; flex-shrink:0; }
+  .px { font-family: var(--font-mono); font-size: 10px; color: var(--ink-400); width: 48px; flex-shrink: 0; }
+  .bar { height: 14px; background: var(--gold-400); border-radius: 2px; }
+</style>
+</head>
+<body>
+  <div class="row"><span class="tok">--s-1</span><span class="px">4px</span><div class="bar" style="width:4px"></div></div>
+  <div class="row"><span class="tok">--s-2</span><span class="px">8px</span><div class="bar" style="width:8px"></div></div>
+  <div class="row"><span class="tok">--s-3</span><span class="px">12px</span><div class="bar" style="width:12px"></div></div>
+  <div class="row"><span class="tok">--s-4</span><span class="px">16px</span><div class="bar" style="width:16px"></div></div>
+  <div class="row"><span class="tok">--s-5</span><span class="px">24px</span><div class="bar" style="width:24px"></div></div>
+  <div class="row"><span class="tok">--s-6</span><span class="px">32px</span><div class="bar" style="width:32px"></div></div>
+  <div class="row"><span class="tok">--s-7</span><span class="px">48px</span><div class="bar" style="width:48px"></div></div>
+  <div class="row"><span class="tok">--s-8</span><span class="px">64px</span><div class="bar" style="width:64px"></div></div>
+  <div class="row"><span class="tok">--s-9</span><span class="px">96px</span><div class="bar" style="width:96px; background: var(--teal-400);"></div></div>
+</body>
+</html>

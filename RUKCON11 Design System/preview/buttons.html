@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Buttons</title>
+<link rel="stylesheet" href="../colors_and_type.css">
+<style>
+  body { margin:0; padding: 22px; background: var(--ink-50); font-family: var(--font-body); }
+  .row { display:flex; gap: 12px; align-items:center; flex-wrap: wrap; margin-bottom: 14px; }
+  .btn { font-family: var(--font-display); text-transform: uppercase; letter-spacing: 0.06em; font-weight: 700; font-size: 14px; padding: 12px 22px; border-radius: 4px; border: 1px solid transparent; cursor:pointer; transition: background 200ms var(--ease-out), color 200ms var(--ease-out), box-shadow 200ms var(--ease-out); }
+  .btn-primary { background: var(--gold-400); color: var(--ink-950); box-shadow: var(--shadow-gold); }
+  .btn-primary:hover { background: var(--gold-300); }
+  .btn-secondary { background: var(--teal-400); color: white; }
+  .btn-secondary:hover { background: var(--teal-300); }
+  .btn-ghost { background: transparent; color: var(--ink-900); border: 1px solid var(--ink-900); }
+  .btn-ghost:hover { background: var(--ink-900); color: var(--ink-50); }
+  .btn-link { background: transparent; color: var(--gold-500); border: 0; padding: 6px 0; text-transform: uppercase; }
+  .btn-link:hover { text-decoration: underline; }
+  .lbl { font-family: var(--font-mono); font-size: 10px; color: var(--ink-500); width: 86px; }
+</style>
+</head>
+<body>
+  <div class="row"><span class="lbl">Primary</span><button class="btn btn-primary">Reserve Seat</button><button class="btn btn-primary" style="background:var(--gold-300)">Hover</button><button class="btn btn-primary" style="background:var(--gold-500)">Press</button></div>
+  <div class="row"><span class="lbl">Secondary</span><button class="btn btn-secondary">Partners</button><button class="btn btn-secondary" style="background:var(--teal-300)">Hover</button><button class="btn btn-secondary" style="background:var(--teal-500)">Press</button></div>
+  <div class="row"><span class="lbl">Ghost</span><button class="btn btn-ghost">View Agenda</button><button class="btn btn-link">Read more →</button></div>
+</body>
+</html>

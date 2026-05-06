@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Card</title>
+<link rel="stylesheet" href="../colors_and_type.css">
+<style>
+  body { margin:0; padding: 22px; background: var(--ink-50); font-family: var(--font-body); }
+  .grid { display:grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .card { background: white; border:1px solid var(--border); border-radius: var(--r-sm); padding: 18px 20px; box-shadow: var(--shadow-sm); position:relative; }
+  .card.premium { border: 1px solid var(--gold-400); }
+  .card.premium::before { content:""; position:absolute; top:0; left:0; right:0; height:4px; background: var(--gold-400); }
+  .card.partner::before { content:""; position:absolute; top:0; left:0; right:0; height:4px; background: var(--teal-400); }
+  .eb { font-family: var(--font-body); font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--gold-500); margin-bottom: 10px; display:block; }
+  .partner .eb { color: var(--teal-500); }
+  .h { font-family: var(--font-display); text-transform: uppercase; font-weight: 700; font-size: 22px; line-height: 1.05; margin: 0 0 8px; color: var(--ink-900); }
+  .b { font-size: 13px; line-height: 1.55; color: var(--ink-700); margin: 0; }
+  .meta { font-family: var(--font-mono); font-size: 11px; color: var(--ink-500); margin-top: 12px; }
+</style>
+</head>
+<body>
+<div class="grid">
+  <div class="card premium">
+    <span class="eb">Premium tier · Gold rail</span>
+    <h3 class="h">Founders' Table</h3>
+    <p class="b">Twenty seats. Closed-door. The conversation you flew in for.</p>
+    <div class="meta">Sept 14 · 7:30pm</div>
+  </div>
+  <div class="card partner">
+    <span class="eb">Partners in the room · Teal rail</span>
+    <h3 class="h">Riverside Morning</h3>
+    <p class="b">Hosted breakfast and a walking session — built for conversation, not optics.</p>
+    <div class="meta">Sept 15 · 8:00am</div>
+  </div>
+</div>
+</body>
+</html>

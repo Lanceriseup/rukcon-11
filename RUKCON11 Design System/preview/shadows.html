@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Shadows / Elevation</title>
+<link rel="stylesheet" href="../colors_and_type.css">
+<style>
+  body { margin:0; padding: 26px 24px; font-family: var(--font-body); background: var(--ink-50); }
+  .row { display:grid; grid-template-columns: repeat(4, 1fr); gap: 18px; }
+  .tile { display:flex; flex-direction:column; align-items:center; gap: 12px; }
+  .box { width: 100%; height: 64px; background: white; border: 1px solid var(--border); border-radius: 2px; }
+  .sm { box-shadow: 0 1px 2px rgba(10,10,10,0.10); }
+  .md { box-shadow: 0 4px 14px rgba(10,10,10,0.14); }
+  .lg { box-shadow: 0 18px 40px -12px rgba(10,10,10,0.30); }
+  .gold { box-shadow: 0 8px 24px -6px rgba(201,155,48,0.45); border-color: var(--gold-400); }
+  .name { font-family: var(--font-mono); font-size: 11px; color: var(--ink-900); font-weight: 600; }
+  .meta { font-family: var(--font-mono); font-size: 10px; color: var(--ink-500); }
+</style>
+</head>
+<body>
+<div class="row">
+  <div class="tile"><div class="box sm"></div><div class="name">--shadow-sm</div><div class="meta">resting cards</div></div>
+  <div class="tile"><div class="box md"></div><div class="name">--shadow-md</div><div class="meta">hover · elevated</div></div>
+  <div class="tile"><div class="box lg"></div><div class="name">--shadow-lg</div><div class="meta">modals</div></div>
+  <div class="tile"><div class="box gold"></div><div class="name">--shadow-gold</div><div class="meta">premium CTA only</div></div>
+</div>
+</body>
+</html>
