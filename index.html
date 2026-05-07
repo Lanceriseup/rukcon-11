@@ -39,7 +39,9 @@
       color: var(--fg);
       font-family: 'Montserrat', system-ui, sans-serif;
       -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
     }
+    html { overflow-x: hidden; }
     img { max-width: 100%; display: block; }
     a { text-decoration: none; }
 
@@ -388,6 +390,7 @@
       overflow: hidden;
       border: 1px solid rgba(255,255,255,0.08);
       margin-top: 8px;
+      pointer-events: all;
     }
     #mobile-menu::before {
       content: '';
@@ -401,18 +404,19 @@
     #mobile-menu a {
       position: relative;
       z-index: 1;
-      font-size: 11px;
+      font-size: 12px;
       font-weight: 700;
       letter-spacing: 0.1em;
       text-transform: uppercase;
-      color: rgba(255,255,255,0.55);
+      color: rgba(255,255,255,0.65);
       text-decoration: none;
-      padding: 14px 20px;
+      padding: 16px 24px;
       border-bottom: 1px solid rgba(255,255,255,0.05);
       transition: color 0.15s, background 0.15s;
+      display: block;
     }
-    #mobile-menu a:last-child { border-bottom: none; }
-    #mobile-menu a:hover { color: var(--gold-400); }
+    #mobile-menu a:last-child { border-bottom: none; background: rgba(201,155,48,0.1); color: var(--gold-400); }
+    #mobile-menu a:hover { color: var(--gold-400); background: rgba(255,255,255,0.04); }
 
     #hamburger {
       background: rgba(255,255,255,0.07);
@@ -440,11 +444,13 @@
         right: 16px;
         transform: none;
         width: auto;
+        max-width: calc(100vw - 32px);
+        box-sizing: border-box;
         display: flex;
         flex-direction: column;
       }
       .nav-island { display: none; }
-      .nav-mobile-pill { display: flex; }
+      .nav-mobile-pill { display: flex; width: 100%; box-sizing: border-box; }
     }
 
     /* ── SECTION 4: GOLD TAB CARDS ── */
@@ -679,6 +685,61 @@
       #final-cta .s14-cta{padding:72px 24px 56px;}
       #final-cta .s14-foot{flex-direction:column;align-items:flex-start;padding:28px 24px;}
     }
+
+    /* ── COMPREHENSIVE MOBILE PASS ── */
+    @media(max-width:640px){
+      /* Section paddings */
+      #who-its-for{padding:56px 20px !important;}
+      #pillars{padding:56px 20px !important;}
+      #schedule{padding:56px 20px !important;}
+      #freedom{padding:40px 20px !important;}
+      #speakers{padding:48px 0 40px !important;}
+      #outcomes{padding-bottom:48px !important;}
+      #outcomes .s7-inner{padding:0 20px !important;}
+      #outcomes .s7-header{padding:40px 0 28px !important;}
+      #outcomes .s7-row{grid-template-columns:44px 1fr !important;gap:14px !important;padding:20px 0 !important;}
+      #outcomes .s7-num{font-size:40px !important;}
+      #outcomes .s7-body{font-size:13px !important;}
+      #testimonials{padding:56px 20px 64px !important;}
+      #testimonials .s8-heading{margin-bottom:32px !important;}
+      #reserve{padding:56px 20px 64px !important;}
+      #reserve .s10-card{padding:24px 20px !important;}
+      #reserve .s10-cur-price{font-size:36px !important;}
+      #reserve .s10-addon{padding:18px 16px !important;}
+      #reserve .s10-hotel-photo{height:180px !important;}
+      #faq{padding:56px 20px !important;}
+      #other-ways{padding:40px 20px 56px !important;}
+      #final-cta .s14-cta{padding:56px 20px 40px !important;}
+      #final-cta .s14-body,#final-cta .s14-body2{font-size:13px !important;}
+
+      /* Schedule inner */
+      #schedule .s4-body{padding:18px 16px 16px !important;}
+      #schedule .s4-ev{gap:4px !important;}
+
+      /* Freedom section grid collapse */
+      #freedom>div{grid-template-columns:1fr !important;gap:28px !important;padding-top:36px !important;}
+      #freedom img{height:260px !important;}
+      #freedom a[href="#reserve"]{display:block !important;text-align:center !important;box-sizing:border-box !important;}
+
+      /* CTA row button sizing — arrows + btn must fit in ~325px */
+      .cta-arrow-row .btn-gold{font-size:12px !important;padding:14px 22px !important;}
+      .dbl-arr span{font-size:16px !important;}
+
+      /* s6 inner padding */
+      #speakers .s6-inner{padding:0 20px 36px !important;}
+      #speakers .s6-sub{font-size:13px !important;}
+
+      /* Reserve timeline */
+      #reserve .s10-phase{padding:14px 12px !important;}
+      #reserve .s10-phase .ph-price{font-size:18px !important;}
+
+      /* Outcomes/After text */
+      #outcomes .s7-title{font-size:12px !important;}
+
+      /* Other ways in */
+      #other-ways .s13-inner{gap:28px !important;}
+      #other-ways .s13-heading{font-size:28px !important;}
+    }
   </style>
 </head>
 <body>
@@ -724,7 +785,8 @@
     <a href="#schedule">Schedule</a>
     <a href="#speakers">Speakers</a>
     <a href="#testimonials">Testimonials</a>
-    <a href="#reserve">Reserve Your Seat</a>
+    <a href="#faq">FAQ</a>
+    <a href="#reserve">Reserve Your Seat &rarr;</a>
   </div>
 </nav>
 
@@ -816,7 +878,7 @@
 </section>
 
 <!-- ── SECTION 2: WHO IT'S FOR ── -->
-<section style="padding:96px 24px;position:relative;background-image:url('public/images/Men and Women.jpg');background-size:cover;background-position:center top;">
+<section id="who-its-for" style="padding:96px 24px;position:relative;background-image:url('public/images/Men and Women.jpg');background-size:cover;background-position:center top;">
   <div style="position:absolute;inset:0;background:linear-gradient(to bottom,rgba(10,10,10,0.88) 0%,rgba(10,10,10,0.40) 30%,rgba(10,10,10,0.40) 70%,rgba(10,10,10,0.90) 100%);"></div>
   <div style="position:relative;z-index:1;max-width:960px;margin:0 auto;text-align:center;">
     <hr class="gold-rule" style="margin-bottom:32px;">
