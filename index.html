@@ -33,7 +33,7 @@
 
     /* ── RESET & BASE ── */
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    html { scroll-behavior: smooth; }
+    html { scroll-behavior: smooth; background: #141414; }
     body {
       background: var(--bg);
       color: var(--fg);
@@ -105,6 +105,16 @@
     }
     .btn-teal:hover { background: var(--teal-300); }
 
+    .cta-arrow-row{display:flex;align-items:center;justify-content:center;gap:8px;}
+    .dbl-arr{display:flex;gap:1px;}
+    .dbl-arr span{font-size:20px;font-weight:900;color:#1FA0A8;text-shadow:0 0 10px #1FA0A8,0 0 24px rgba(31,160,168,0.55);line-height:1;}
+    .dbl-arr span:nth-child(1){animation:cascade-c 1.4s ease-in-out infinite 0s;}
+    .dbl-arr span:nth-child(2){animation:cascade-c 1.4s ease-in-out infinite 0.15s;}
+    .dbl-arr.right span:nth-child(1){animation:cascade-cr 1.4s ease-in-out infinite 0s;}
+    .dbl-arr.right span:nth-child(2){animation:cascade-cr 1.4s ease-in-out infinite 0.15s;}
+    @keyframes cascade-c{0%,100%{opacity:0.2;transform:translateX(-3px);}50%{opacity:1;transform:translateX(0);}}
+    @keyframes cascade-cr{0%,100%{opacity:0.2;transform:translateX(3px);}50%{opacity:1;transform:translateX(0);}}
+
     .eyebrow {
       font-size: 11px;
       font-weight: 600;
@@ -127,57 +137,100 @@
     }
     .reveal { animation: fadeUp var(--dur-slow) var(--ease-out) both; }
 
-    /* ── Hero card border beam ── */
-    .hero-card-outer{position:relative;z-index:1;width:100%;max-width:960px;}
-    .border-ring{position:absolute;inset:-2px;border-radius:30px;overflow:hidden;z-index:0;}
-    .border-spin{
-      position:absolute;top:50%;left:50%;
-      width:200%;height:200%;
-      background:conic-gradient(
-        from 0deg at 50% 50%,
-        transparent 0deg,
-        rgba(201,155,48,0.04) 240deg,
-        rgba(201,155,48,0.20) 270deg,
-        rgba(201,155,48,0.55) 285deg,
-        rgba(201,155,48,0.85) 292deg,
-        rgba(201,155,48,0.55) 299deg,
-        rgba(201,155,48,0.20) 315deg,
-        rgba(201,155,48,0.04) 345deg,
-        transparent 360deg
-      );
-      animation:arc-sweep 5s linear infinite;
-    }
-    @keyframes arc-sweep{
-      from{transform:translate(-50%,-50%) rotate(0deg);}
-      to{transform:translate(-50%,-50%) rotate(360deg);}
-    }
-
-    /* ── CTA cascade arrows ── */
-    .cta-arrow-row{display:flex;align-items:center;justify-content:center;gap:8px;margin-bottom:20px;}
-    .dbl-arr{display:flex;gap:1px;}
-    .dbl-arr span{font-size:20px;font-weight:900;color:#20a1a8;text-shadow:0 0 10px #20a1a8,0 0 24px rgba(32,161,168,0.55);line-height:1;}
-    .dbl-arr span:nth-child(1){animation:cascade-c 1.4s ease-in-out infinite 0s;}
-    .dbl-arr span:nth-child(2){animation:cascade-c 1.4s ease-in-out infinite 0.15s;}
-    .dbl-arr.right span:nth-child(1){animation:cascade-cr 1.4s ease-in-out infinite 0s;}
-    .dbl-arr.right span:nth-child(2){animation:cascade-cr 1.4s ease-in-out infinite 0.15s;}
-    @keyframes cascade-c{0%,100%{opacity:0.2;transform:translateX(-3px);}50%{opacity:1;transform:translateX(0);}}
-    @keyframes cascade-cr{0%,100%{opacity:0.2;transform:translateX(3px);}50%{opacity:1;transform:translateX(0);}}
-
-    /* ── Mobile hero ── */
+    /* ── HERO: Flashpoint Layout ── */
+    .h-bg{position:absolute;inset:0;}
+    .h-bg img{width:100%;height:100%;object-fit:cover;object-position:62% top;}
+    .h-bg::after{content:'';position:absolute;inset:0;
+      background:
+        linear-gradient(to right,rgba(2,2,2,0.98) 0%,rgba(2,2,2,0.88) 30%,rgba(2,2,2,0.52) 58%,rgba(2,2,2,0.20) 80%,rgba(2,2,2,0.06) 100%),
+        linear-gradient(to bottom,rgba(2,2,2,0.8) 0%,transparent 20%,transparent 72%,rgba(2,2,2,0.9) 100%);}
+    /* Teal top bar */
+    .h-top-bar{position:absolute;top:0;left:0;right:0;height:3px;z-index:3;
+      background:linear-gradient(to right,var(--teal-400) 0%,var(--teal-400) 55%,transparent 100%);}
+    /* Frame — split grid, both columns vertically centered */
+    .h-frame{position:absolute;inset:0;display:grid;grid-template-columns:1fr 368px;gap:60px;align-items:center;
+      padding:40px 60px 50px;max-width:1360px;margin:0 auto;left:0;right:0;}
+    /* LEFT — full content stack */
+    .h-mid{display:flex;flex-direction:column;}
+    /* RIGHT — transparent wrapper, children fill naturally */
+    .h-bot-r{display:flex;flex-direction:column;background:transparent;overflow:visible;border:none;box-shadow:none;backdrop-filter:none;}
+    /* TOP: logo + pill side by side */
+    .h-top{display:flex;align-items:center;gap:22px;margin-bottom:18px;}
+    .h-logo img{width:clamp(150px,13vw,180px);opacity:0.9;display:block;}
+    /* Pill */
+    .h-pill{display:inline-flex;align-items:center;gap:7px;border:1px solid rgba(31,160,168,0.4);
+      border-radius:100px;padding:6px 18px;background:rgba(31,160,168,0.07);}
+    .h-pill-dot{width:6px;height:6px;border-radius:50%;background:var(--teal-400);flex-shrink:0;}
+    .h-pill-txt{font-size:8px;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:var(--teal-400);}
+    /* Headline — full white */
+    .h-l1{display:block;font-size:clamp(34px,5.3vw,75px);font-weight:900;text-transform:uppercase;letter-spacing:-0.04em;line-height:0.88;color:#fff;}
+    .h-l2{display:block;font-size:clamp(34px,5.3vw,75px);font-weight:900;font-style:italic;text-transform:uppercase;letter-spacing:-0.03em;line-height:0.88;color:#fff;}
+    /* ALL IN — gold + glow */
+    .h-allin-wrap{position:relative;display:inline-block;margin-bottom:22px;}
+    .h-allin{display:block;font-size:clamp(65px,10.2vw,140px);font-weight:900;text-transform:uppercase;
+      letter-spacing:-0.05em;line-height:0.85;color:var(--gold-400);
+      text-shadow:0 0 60px rgba(201,155,48,0.35),0 0 120px rgba(201,155,48,0.12);}
+    /* Line B — medium teal, fades right */
+    .h-allin-brush{position:absolute;bottom:-8px;left:0;width:80%;height:4px;
+      background:linear-gradient(to right,var(--teal-400),rgba(31,160,168,0.3));
+      border-radius:2px;pointer-events:none;}
+    /* Sub */
+    .h-sub{font-size:clamp(12px,1.2vw,15px);font-style:italic;font-weight:700;text-transform:uppercase;
+      letter-spacing:0.06em;color:#fff;margin-bottom:16px;}
+    /* Body — left side, capped width */
+    .h-body{font-size:clamp(11px,0.9vw,12px);line-height:1.85;color:rgba(255,255,255,0.82);
+      max-width:560px;margin-bottom:20px;}
+    /* CTA */
+    .h-cta{margin-bottom:18px;}
+    /* Bring — bigger, visible */
+    .h-bring{display:flex;align-items:center;flex-wrap:wrap;gap:0;}
+    .h-bring-lbl{font-size:11px;font-weight:800;letter-spacing:0.22em;text-transform:uppercase;color:var(--teal-400);}
+    .h-bring-pipe{color:rgba(31,160,168,0.5);margin:0 12px;font-size:13px;}
+    .h-bring-item{font-size:11px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:rgba(255,255,255,0.75);}
+    .h-bring-dot{color:rgba(255,255,255,0.35);margin:0 10px;font-size:13px;}
+    /* Countdown — Option F: own gold box with glow */
+    .h-cd-wrap{
+      background:rgba(0,0,0,0.82);border:2px solid var(--gold-400);
+      backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);
+      padding:18px 18px 18px;
+      box-shadow:0 0 40px rgba(201,155,48,0.28),0 0 80px rgba(201,155,48,0.12),inset 0 0 0 1px rgba(201,155,48,0.10);}
+    .h-cd-heading{font-size:8px;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:var(--gold-400);display:block;margin-bottom:12px;}
+    .h-cd{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:rgba(201,155,48,0.06);}
+    .h-cd-box{background:rgba(0,0,0,0.55);padding:13px 6px;text-align:center;}
+    .h-cd-num{display:block;font-size:clamp(19px,2.2vw,29px);font-weight:900;color:#fff;line-height:1;}
+    .h-cd-lbl{display:block;font-size:7px;font-weight:700;letter-spacing:0.16em;text-transform:uppercase;color:var(--gold-400);opacity:0.75;margin-top:5px;}
+    /* Stats — Option F: separate lighter box, no top border */
+    .h-stats{display:grid;grid-template-columns:repeat(3,1fr);
+      background:rgba(0,0,0,0.55);border:2px solid rgba(201,155,48,0.28);border-top:none;
+      box-shadow:0 8px 32px rgba(0,0,0,0.4);}
+    .h-stat{padding:11px 13px;border-left:1px solid rgba(201,155,48,0.25);}
+    .h-stat:first-child{border-left:none;}
+    .h-stat-num{display:block;font-size:clamp(13px,1.4vw,19px);font-weight:900;color:#fff;line-height:1;}
+    .h-stat-num sup{font-size:8px;color:var(--gold-400);}
+    .h-stat-lbl{display:block;font-size:7px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:rgba(255,255,255,0.32);margin-top:3px;line-height:1.4;}
+    /* Mobile hero */
     @media(max-width:640px){
-      .hero-section{padding:100px 12px 32px !important;}
-      .hero-logo{margin-top:16px !important;margin-bottom:20px !important;}
-      .hero-inner{padding:28px 22px !important;border-radius:20px !important;}
-      .hero-inner .eyebrow{margin-bottom:14px !important;}
-      .hero-inner h1{font-size:26px !important;margin-bottom:12px !important;}
-      .hero-tagline{font-size:11px !important;margin-bottom:18px !important;}
-      .hero-body{font-size:13px !important;line-height:1.65 !important;margin-bottom:28px !important;}
-      .cta-arrow-row{gap:6px !important;margin-bottom:10px !important;}
-      .cta-arrow-row .btn-gold{font-size:13px !important;padding:14px 28px !important;}
-      .hero-ghosts{flex-direction:column !important;align-items:stretch !important;gap:8px !important;margin-bottom:28px !important;}
-      .hero-ghosts .btn-ghost{font-size:11px !important;padding:12px 14px !important;text-align:center !important;}
-      .hero-stats-bar{gap:8px !important;padding-top:20px !important;}
-      .hero-stat-dot{display:none !important;}
+      .hero-section{min-height:unset !important;height:auto !important;overflow:hidden !important;}
+      .h-frame{
+        position:relative !important;
+        display:flex !important;flex-direction:column !important;align-items:center !important;
+        justify-content:flex-start !important;text-align:center !important;
+        padding:80px 20px 48px !important;gap:0 !important;
+      }
+      .h-logo{display:none !important;}
+      .h-top{justify-content:center !important;margin-bottom:12px !important;}
+      .h-mid{align-items:center !important;width:100% !important;}
+      .h-l1,.h-l2{font-size:clamp(28px,9vw,42px) !important;text-align:center !important;}
+      .h-allin{font-size:clamp(54px,17vw,80px) !important;}
+      .h-allin-wrap{margin-bottom:12px !important;}
+      .h-sub{font-size:11px !important;text-align:center !important;margin-bottom:10px !important;}
+      .h-body{font-size:11px !important;text-align:center !important;max-width:100% !important;margin-bottom:14px !important;line-height:1.7 !important;}
+      .h-cta{text-align:center !important;margin-bottom:10px !important;}
+      .h-bring{justify-content:center !important;margin-bottom:18px !important;}
+      .h-bot-r{width:100% !important;max-width:100% !important;}
+      .h-cd-wrap{padding:12px 12px 12px !important;}
+      .h-cd-num{font-size:22px !important;}
+      .h-stat-num{font-size:15px !important;}
 
       /* Section 1 mobile */
       .section1{padding:56px 16px !important;}
@@ -305,11 +358,12 @@
       position: relative;
       border-radius: 100px;
       overflow: hidden;
-      border: 1px solid rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.10);
       padding: 7px 7px 7px 20px;
       display: none;
       align-items: center;
       justify-content: space-between;
+      background: rgba(10,10,10,0.92);
     }
     .nav-mobile-pill::before {
       content: '';
@@ -468,8 +522,8 @@
     #outcomes .s7-row:last-child{border-bottom:1px solid rgba(255,255,255,0.06);}
     #outcomes .s7-num{font-size:clamp(64px,7vw,88px);font-weight:900;color:rgba(201,155,48,0.11);line-height:1;letter-spacing:-0.04em;user-select:none;margin-top:-10px;}
     #outcomes .s7-title{font-size:13px;font-weight:800;letter-spacing:0.14em;text-transform:uppercase;color:#fff;margin-bottom:10px;display:flex;align-items:center;gap:12px;}
-    #outcomes .s7-title::before{content:'';display:block;width:18px;height:2px;background:var(--gold-400);flex-shrink:0;}
-    #outcomes .s7-body{font-size:15px;line-height:1.72;color:rgba(255,255,255,0.45);}
+    #outcomes .s7-title::before{content:'';display:block;width:18px;height:2px;background:var(--teal-400);flex-shrink:0;}
+    #outcomes .s7-body{font-size:15px;line-height:1.72;color:rgba(255,255,255,0.75);}
 
     /* ── SECTION 8: TESTIMONIALS ── */
     #testimonials{background:#f0ede7;padding:88px 24px 96px;border-top:4px solid var(--gold-400);}
@@ -492,8 +546,8 @@
     /* ── SECTION 9: SKYLAR LETTER ── */
     #skylar{background:#f0ede7;border-bottom:3px solid var(--gold-400);}
     #skylar .s9-divider{width:100%;height:1px;background:linear-gradient(to right,transparent,rgba(201,155,48,0.3),transparent);}
-    #skylar .s9-inner{max-width:960px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;}
-    #skylar .s9-photo{position:relative;overflow:hidden;background:#f0ede7;min-height:480px;}
+    #skylar .s9-inner{max-width:1200px;margin:0 auto;display:grid;grid-template-columns:520px 1fr;}
+    #skylar .s9-photo{position:relative;overflow:hidden;background:#f0ede7;min-height:600px;}
     #skylar .s9-photo img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:top center;display:block;mix-blend-mode:multiply;}
     #skylar .s9-letter{padding:44px 48px 44px 40px;display:flex;flex-direction:column;justify-content:center;}
     #skylar .s9-eyebrow{font-size:11px;font-weight:800;letter-spacing:0.22em;text-transform:uppercase;color:var(--gold-400);margin-bottom:12px;}
@@ -524,9 +578,10 @@
     #reserve .s10-phase.hot .ph-date{color:#888;}
     /* cards */
     #reserve .s10-cards{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
-    #reserve .s10-card{background:#1a1a1a;border:1px solid #2a2a2a;padding:36px 32px;display:flex;flex-direction:column;}
-    #reserve .s10-card.premium{border-color:rgba(201,155,48,0.35);background:#1c1a14;position:relative;}
-    #reserve .s10-card.premium::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:var(--gold-400);}
+    #reserve .s10-card{background:rgba(255,255,255,0.07);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border:1px solid rgba(255,255,255,0.15);border-top:3px solid var(--teal-400);padding:36px 32px;display:flex;flex-direction:column;}
+    #reserve .s10-cta{margin-top:auto;padding-top:24px;}
+    #reserve .s10-card.premium{border-top:3px solid var(--gold-400);background:rgba(255,255,255,0.07);}
+    #reserve .s10-card.premium::before{display:none;}
     #reserve .s10-tier{font-size:10px;font-weight:800;letter-spacing:0.2em;text-transform:uppercase;color:#555;margin-bottom:10px;}
     #reserve .s10-card.premium .s10-tier{color:var(--gold-400);}
     #reserve .s10-card:not(.premium) .s10-tier{color:var(--teal-400);}
@@ -534,28 +589,35 @@
     #reserve .s10-card:not(.premium) .s10-cur-phase{color:var(--teal-400);}
     #reserve .s10-cur-price{font-size:48px;font-weight:900;color:#fff;letter-spacing:-0.04em;line-height:1;margin-bottom:6px;}
     #reserve .s10-cur-window{font-size:11px;color:#555;margin-bottom:24px;line-height:1.5;}
-    #reserve .s10-incl{list-style:none;padding:0;margin:0 0 28px;font-size:12px;color:#555;line-height:1.9;}
+    #reserve .s10-incl{list-style:none;padding:0;margin:0 0 28px;font-size:12px;color:rgba(255,255,255,0.7);line-height:1.9;}
     #reserve .s10-incl li{padding-left:18px;position:relative;}
     #reserve .s10-incl li::before{content:'✓';position:absolute;left:0;color:var(--gold-400);}
     #reserve .s10-card:not(.premium) .s10-incl li::before{color:var(--teal-400);}
     #reserve .s10-cta{margin-top:auto;}
     /* add-ons */
-    #reserve .s10-addons{margin-top:40px;border-top:1px solid #1f1f1f;padding-top:32px;}
-    #reserve .s10-addons-label{font-size:10px;font-weight:800;letter-spacing:0.2em;text-transform:uppercase;color:#444;margin-bottom:20px;}
+    #reserve .s10-addons{margin-top:40px;border-top:1px solid rgba(31,160,168,0.3);padding-top:32px;}
+    #reserve .s10-addons-label{font-size:10px;font-weight:800;letter-spacing:0.2em;text-transform:uppercase;color:var(--gold-400);margin-bottom:20px;}
     #reserve .s10-addon-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;}
-    #reserve .s10-addon{border:1px solid #1f1f1f;padding:22px 20px;}
-    #reserve .s10-addon-name{font-size:12px;font-weight:800;text-transform:uppercase;letter-spacing:0.08em;color:#fff;margin-bottom:4px;}
-    #reserve .s10-addon-tag{font-size:10px;color:var(--gold-400);font-weight:700;margin-bottom:8px;}
-    #reserve .s10-addon-body{font-size:11px;color:#555;line-height:1.65;}
+    #reserve .s10-addon{background:rgba(255,255,255,0.06);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border:none;border-left:3px solid var(--teal-400);padding:28px 24px;position:relative;}
+    #reserve .s10-addon-num{font-size:40px;font-weight:900;color:rgba(31,160,168,0.4);line-height:1;margin-bottom:10px;letter-spacing:-0.05em;}
+    #reserve .s10-addon-name{font-size:12px;font-weight:800;text-transform:uppercase;letter-spacing:0.08em;color:#fff;margin-bottom:6px;}
+    #reserve .s10-addon-tag{font-size:10px;color:var(--gold-400);font-weight:700;letter-spacing:0.06em;margin-bottom:10px;}
+    #reserve .s10-addon-body{font-size:11px;color:rgba(255,255,255,0.8);line-height:1.65;}
     /* hotel sub-row */
-    #reserve .s10-hotel{margin-top:40px;border-top:1px solid #1f1f1f;padding-top:32px;}
-    #reserve .s10-hotel-label{font-size:10px;font-weight:800;letter-spacing:0.2em;text-transform:uppercase;color:#444;margin-bottom:20px;}
+    #reserve .s10-hotel{margin-top:40px;border-top:1px solid rgba(31,160,168,0.2);padding-top:32px;}
+    #reserve .s10-hotel-label{font-size:10px;font-weight:800;letter-spacing:0.2em;text-transform:uppercase;color:var(--gold-400);margin-bottom:20px;}
     #reserve .s10-hotel-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
-    #reserve .s10-hotel-card{background:#141414;border:1px solid #1f1f1f;border-top:2px solid rgba(201,155,48,0.25);padding:24px 22px;}
-    #reserve .s10-hotel-tag{font-size:9px;font-weight:800;letter-spacing:0.18em;text-transform:uppercase;color:var(--teal-400);margin-bottom:8px;}
-    #reserve .s10-hotel-name{font-size:15px;font-weight:800;color:#fff;margin-bottom:8px;line-height:1.3;}
-    #reserve .s10-hotel-desc{font-size:12px;color:#555;line-height:1.65;margin-bottom:14px;}
-    #reserve .s10-hotel-link{font-size:10px;font-weight:800;letter-spacing:0.12em;text-transform:uppercase;color:var(--gold-400);text-decoration:none;border-bottom:1px solid rgba(201,155,48,0.3);padding-bottom:2px;}
+    #reserve .s10-hotel-card{background:rgba(15,15,15,0.85);border:1px solid rgba(255,255,255,0.08);overflow:hidden;}
+    #reserve .s10-hotel-photo{width:100%;height:220px;object-fit:cover;object-position:center;display:block;}
+    #reserve .s10-hotel-body{padding:24px 24px 28px;}
+    #reserve .s10-hotel-tag{font-size:9px;font-weight:800;letter-spacing:0.18em;text-transform:uppercase;color:var(--teal-400);margin-bottom:10px;display:flex;align-items:center;gap:8px;}
+    #reserve .s10-hotel-tag::before{content:'';width:18px;height:2px;background:var(--teal-400);flex-shrink:0;}
+    #reserve .s10-hotel-name{font-size:18px;font-weight:900;text-transform:uppercase;letter-spacing:-0.02em;color:#fff;line-height:1.1;margin-bottom:6px;}
+    #reserve .s10-hotel-sub{font-size:10px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--gold-400);margin-bottom:14px;}
+    #reserve .s10-hotel-feats{list-style:none;padding:0;margin:0 0 20px;display:flex;flex-direction:column;gap:5px;}
+    #reserve .s10-hotel-feats li{font-size:12px;color:rgba(255,255,255,0.6);padding-left:18px;position:relative;line-height:1.5;}
+    #reserve .s10-hotel-feats li::before{content:'—';position:absolute;left:0;color:var(--gold-400);font-size:10px;}
+    #reserve .s10-hotel-link{display:inline-flex;align-items:center;gap:8px;background:var(--gold-400);color:#141414;font-weight:800;font-size:11px;letter-spacing:0.12em;text-transform:uppercase;padding:13px 22px;text-decoration:none;}
     @media(max-width:640px){
       #reserve .s10-timeline{grid-template-columns:repeat(2,1fr);}
       #reserve .s10-cards{grid-template-columns:1fr;}
@@ -669,72 +731,66 @@
 <main>
 
 <!-- ── HERO ── -->
-<section class="section-dark hero-section" style="min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;position:relative;overflow:hidden;text-align:center;padding:80px 32px 48px;">
+<section class="section-dark hero-section" style="min-height:100vh;position:relative;overflow:hidden;">
 
-  <!-- Conference background photo -->
-  <div style="position:absolute;inset:0;pointer-events:none;">
-    <img src="public/images/Hero Section BG.jpg" alt="" style="width:100%;height:100%;object-fit:cover;object-position:center top;">
-    <div style="position:absolute;inset:0;background:linear-gradient(to bottom,rgba(10,10,10,0.55) 0%,rgba(10,10,10,0.35) 50%,rgba(10,10,10,0.65) 100%);"></div>
+  <!-- BG photo + overlay -->
+  <div class="h-bg">
+    <img src="public/images/Hero Section BG.jpg" alt="">
   </div>
 
-  <!-- Logo above card -->
-  <div class="hero-logo" style="position:relative;z-index:2;margin-bottom:28px;">
-    <img src="./public/images/RUKCON11_Logo_Tagline_transparent_white.png" alt="RUKCON 11" style="width:clamp(190px,22vw,270px);display:block;margin:0 auto;">
-  </div>
+  <!-- Flashpoint frame -->
+  <div class="h-frame">
 
-  <!-- Frosted card -->
-  <div class="hero-card-outer">
-    <div class="border-ring"><div class="border-spin"></div></div>
-    <div class="hero-inner" style="background:rgba(10,10,10,0.72);border:none;border-radius:28px;padding:56px 96px;backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);position:relative;z-index:2;">
-
-      <!-- Gold rule -->
-      <div style="width:48px;height:2px;background:var(--gold-400);margin:0 auto 36px;"></div>
-
-      <!-- Eyebrow -->
-      <p class="eyebrow" style="margin-bottom:28px;">Dallas, TX &nbsp;&middot;&nbsp; Oct 15&ndash;17, 2026</p>
-
-      <!-- Headline -->
-      <h1 style="font-weight:900;text-transform:uppercase;font-size:clamp(24px,2.6vw,38px);line-height:1.1;letter-spacing:-0.01em;color:#F5F4F0;margin-bottom:20px;">
-        The Weekend <span style="color:var(--gold-400);">Christian Leaders</span><br>
-        Go All In.
-      </h1>
-
-      <!-- Tagline -->
-      <p class="hero-tagline" style="font-weight:800;font-size:clamp(12px,1.6vw,16px);text-transform:uppercase;letter-spacing:0.07em;color:rgba(255,255,255,0.28);margin-bottom:32px;line-height:1.5;">
-        &hellip;And Bring Their People With Them.
-      </p>
-
-      <!-- Body copy -->
-      <p class="hero-body" style="font-size:17px;line-height:1.8;color:rgba(255,255,255,0.42);max-width:680px;margin:0 auto 44px;">
-        Three days. Keynote speakers. Deep-dive sessions on Faith, Family, Fitness, and Finance.
-        The Freedom event for your wife running alongside. The brotherhood you&rsquo;ve been trying
-        to describe &mdash; now in a room they can walk into.
-      </p>
-
-      <!-- Primary CTA -->
-      <div class="cta-arrow-row">
-        <div class="dbl-arr"><span>&rsaquo;</span><span>&rsaquo;</span></div>
-        <a href="#reserve" class="btn-gold" style="font-size:15px;padding:18px 56px;">Reserve Your Seat</a>
-        <div class="dbl-arr right"><span>&lsaquo;</span><span>&lsaquo;</span></div>
+    <!-- LEFT: full content stack — logo+pill, headlines, body, CTA, bring -->
+    <div class="h-mid">
+      <div class="h-top">
+        <div class="h-logo">
+          <img src="public/images/RUKCON11_Logo_Tagline_transparent_white.png" alt="RUKCON 11">
+        </div>
+        <div class="h-pill">
+          <span class="h-pill-dot"></span>
+          <span class="h-pill-txt">RUKCON 11 &nbsp;&middot;&nbsp; Oct 15&ndash;17, 2026 &nbsp;&middot;&nbsp; Dallas, TX</span>
+        </div>
       </div>
-
-      <!-- Secondary CTAs -->
-      <div class="hero-ghosts" style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-bottom:44px;">
-        <a href="#freedom" class="btn-ghost">Bring Your Wife</a>
-        <a href="#teen" class="btn-ghost">Bring Your Teen</a>
-        <a href="#reserve" class="btn-ghost">Bring Your Friend</a>
+      <span class="h-l1">The Weekend</span>
+      <span class="h-l2">Christian</span>
+      <span class="h-l2">Leaders Go</span>
+      <div class="h-allin-wrap">
+        <span class="h-allin">All In.</span>
+        <span class="h-allin-brush"></span>
       </div>
-
-      <!-- Stats bar -->
-      <div class="hero-stats-bar" style="display:flex;gap:16px;justify-content:center;align-items:center;flex-wrap:wrap;border-top:1px solid rgba(201,155,48,0.12);padding-top:32px;">
-        <span style="font-size:10px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:rgba(255,255,255,0.25);">10+ RUKCONs Run</span>
-        <span class="hero-stat-dot" style="color:rgba(255,255,255,0.12);">&middot;</span>
-        <span style="font-size:10px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:rgba(255,255,255,0.25);">Men in 43+ States</span>
-        <span class="hero-stat-dot" style="color:rgba(255,255,255,0.12);">&middot;</span>
-        <span style="font-size:10px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:rgba(255,255,255,0.25);">Largest Faith-Based Men&rsquo;s Dev Org in America</span>
+      <p class="h-sub">&hellip;And Bring Their People With Them.</p>
+      <p class="h-body">Three days. Keynotes on Faith, Family, Fitness &amp; Finance. The Freedom event for your wife running alongside. The brotherhood you&rsquo;ve been trying to describe &mdash; now in a room they can walk into.</p>
+      <div class="h-cta">
+        <a href="#reserve" class="btn-gold" style="font-size:13px;padding:16px 44px;">Reserve Your Seat &rarr;</a>
       </div>
-
+      <div class="h-bring">
+        <span class="h-bring-lbl">Bring</span>
+        <span class="h-bring-pipe">|</span>
+        <span class="h-bring-item">Your Wife</span><span class="h-bring-dot">&middot;</span>
+        <span class="h-bring-item">Your Teen</span><span class="h-bring-dot">&middot;</span>
+        <span class="h-bring-item">Your Friend</span>
+      </div>
     </div>
+
+    <!-- RIGHT: countdown + stats — bottom aligns with bring row via grid align-items:end -->
+    <div class="h-bot-r">
+      <div class="h-cd-wrap">
+        <span class="h-cd-heading">Time Until RUKCON 11</span>
+        <div class="h-cd">
+          <div class="h-cd-box"><span class="h-cd-num" id="heroD">--</span><span class="h-cd-lbl">Days</span></div>
+          <div class="h-cd-box"><span class="h-cd-num" id="heroH">--</span><span class="h-cd-lbl">Hrs</span></div>
+          <div class="h-cd-box"><span class="h-cd-num" id="heroM">--</span><span class="h-cd-lbl">Min</span></div>
+          <div class="h-cd-box"><span class="h-cd-num" id="heroS">--</span><span class="h-cd-lbl">Sec</span></div>
+        </div>
+      </div>
+      <div class="h-stats">
+        <div class="h-stat"><span class="h-stat-num">10<sup>+</sup></span><span class="h-stat-lbl">RUKCONs Run</span></div>
+        <div class="h-stat"><span class="h-stat-num">43<sup>+</sup></span><span class="h-stat-lbl">States Represented</span></div>
+        <div class="h-stat"><span class="h-stat-num">#1</span><span class="h-stat-lbl">Largest Faith-Based Dev. Org in America</span></div>
+      </div>
+    </div>
+
   </div>
 </section>
 
@@ -747,21 +803,21 @@
       <span style="color:var(--gold-400);">IT&rsquo;S TIME TO GO ALL IN AGAIN.</span>
     </h2>
     <p style="font-size:18px;line-height:1.7;color:var(--ink-600);margin-bottom:20px;text-align:left;">If you&rsquo;re a RUK man, you already know what All In feels like. You walked into the Refinery, or the Awakening, or the Crucible/Covenant, and you walked out different. Your wife noticed. Your team noticed. The guys in your life have been asking what changed ever since.</p>
-    <p class="highlight" style="font-size:20px;line-height:1.6;font-weight:700;color:#141414;margin-bottom:20px;text-align:left;border-left:4px solid #C99B30;padding-left:16px;">RUKCON 11 is where you do it again. Except this time, you don&rsquo;t go alone.</p>
+    <p class="highlight" style="font-size:18px;line-height:1.6;font-weight:700;color:#141414;margin-bottom:20px;text-align:left;border-left:4px solid #1FA0A8;padding-left:16px;">RUKCON 11 is where you do it again. Except this time, you don&rsquo;t go alone.</p>
     <p style="font-size:18px;line-height:1.7;color:var(--ink-600);margin-bottom:20px;text-align:left;">You bring the business partner you&rsquo;ve been trying to get into the Refinery for eight months. You bring the brother-in-law who keeps asking you what happened. You bring your wife into the Freedom event that runs alongside. You stop being the only one in your circle who&rsquo;s done the work.</p>
     <p style="font-size:18px;line-height:1.7;color:var(--ink-600);margin-bottom:20px;text-align:left;">And if you&rsquo;re new to this&hellip; if a friend sent you this page, if your husband went last year and came back a different man, if you&rsquo;ve been watching this from the outside&hellip; this is the room built for you to finally step inside.</p>
     <p style="font-size:18px;line-height:1.7;color:var(--ink-600);margin-bottom:40px;text-align:left;">This is where seeing becomes believing.</p>
 
     <div class="closing" style="margin-top:52px;padding-top:40px;border-top:1px solid rgba(201,155,48,0.3);display:flex;flex-direction:column;align-items:center;gap:8px;text-align:center;">
       <span class="script" style="font-family:'Caveat',cursive;font-size:36px;color:var(--gold-400);font-weight:700;line-height:1;">All In.</span>
-      <p style="font-size:16px;font-weight:800;text-transform:uppercase;letter-spacing:0.08em;color:var(--ink-400);margin:0;">Three Days. One Decision.</p>
+      <p style="font-size:16px;font-weight:800;text-transform:uppercase;letter-spacing:0.08em;color:#1FA0A8;margin:0;">Three Days. One Decision.</p>
     </div>
   </div>
 </section>
 
 <!-- ── SECTION 2: WHO IT'S FOR ── -->
-<section style="padding:96px 24px;position:relative;background-image:url('https://images.unsplash.com/photo-1528605248644-14dd04022da1?auto=format&fit=crop&w=1920&q=80');background-size:cover;background-position:center top;">
-  <div style="position:absolute;inset:0;background:linear-gradient(to bottom,rgba(10,10,10,0.80),rgba(10,10,10,0.88));"></div>
+<section style="padding:96px 24px;position:relative;background-image:url('public/images/Men and Women.jpg');background-size:cover;background-position:center top;">
+  <div style="position:absolute;inset:0;background:linear-gradient(to bottom,rgba(10,10,10,0.88) 0%,rgba(10,10,10,0.40) 30%,rgba(10,10,10,0.40) 70%,rgba(10,10,10,0.90) 100%);"></div>
   <div style="position:relative;z-index:1;max-width:960px;margin:0 auto;text-align:center;">
     <hr class="gold-rule" style="margin-bottom:32px;">
     <h2 style="font-weight:900;text-transform:uppercase;font-size:clamp(24px,4vw,44px);line-height:1.05;letter-spacing:-0.02em;color:#F5F4F0;margin-bottom:48px;">
@@ -771,19 +827,19 @@
       <!-- FOR panel -->
       <div style="background:rgba(10,10,10,0.65);border-left:4px solid #C99B30;padding:32px 28px;">
         <p style="font-weight:800;font-size:12px;letter-spacing:0.14em;text-transform:uppercase;color:#C99B30;margin-bottom:18px;">This is for you if&hellip;</p>
-        <div style="display:flex;gap:12px;margin-bottom:13px;align-items:flex-start;"><span style="color:#C99B30;font-weight:800;flex-shrink:0;margin-top:3px;font-size:13px;">&#10003;</span><p style="font-size:14px;line-height:1.6;color:rgba(255,255,255,0.72);margin:0;">You&rsquo;ve been through the Refinery, Awakening, Covenant, or Revival, and you want to deepen what started</p></div>
-        <div style="display:flex;gap:12px;margin-bottom:13px;align-items:flex-start;"><span style="color:#C99B30;font-weight:800;flex-shrink:0;margin-top:3px;font-size:13px;">&#10003;</span><p style="font-size:14px;line-height:1.6;color:rgba(255,255,255,0.72);margin:0;">You&rsquo;re a RUK man who wants to bring your wife into the weekend with you</p></div>
-        <div style="display:flex;gap:12px;margin-bottom:13px;align-items:flex-start;"><span style="color:#C99B30;font-weight:800;flex-shrink:0;margin-top:3px;font-size:13px;">&#10003;</span><p style="font-size:14px;line-height:1.6;color:rgba(255,255,255,0.72);margin:0;">You&rsquo;re a RUQ woman who&rsquo;s ready for the next chapter of what Freedom opened up</p></div>
-        <div style="display:flex;gap:12px;margin-bottom:13px;align-items:flex-start;"><span style="color:#C99B30;font-weight:800;flex-shrink:0;margin-top:3px;font-size:13px;">&#10003;</span><p style="font-size:14px;line-height:1.6;color:rgba(255,255,255,0.72);margin:0;">You&rsquo;ve heard about Rise Up Kings from someone who changed, and you&rsquo;re ready to see it for yourself</p></div>
-        <div style="display:flex;gap:12px;margin-bottom:0;align-items:flex-start;"><span style="color:#C99B30;font-weight:800;flex-shrink:0;margin-top:3px;font-size:13px;">&#10003;</span><p style="font-size:14px;line-height:1.6;color:rgba(255,255,255,0.72);margin:0;">You&rsquo;re a Christian man or woman who wants a weekend that rebuilds Faith, Family, Fitness, and Finance at the same time</p></div>
+        <div style="display:flex;gap:12px;margin-bottom:13px;align-items:flex-start;"><span style="color:#C99B30;font-weight:800;flex-shrink:0;margin-top:3px;font-size:13px;">&#10003;</span><p style="font-size:14px;line-height:1.6;color:#fff;margin:0;">You&rsquo;ve been through the Refinery, Awakening, Covenant, or Revival, and you want to deepen what started</p></div>
+        <div style="display:flex;gap:12px;margin-bottom:13px;align-items:flex-start;"><span style="color:#C99B30;font-weight:800;flex-shrink:0;margin-top:3px;font-size:13px;">&#10003;</span><p style="font-size:14px;line-height:1.6;color:#fff;margin:0;">You&rsquo;re a RUK man who wants to bring your wife into the weekend with you</p></div>
+        <div style="display:flex;gap:12px;margin-bottom:13px;align-items:flex-start;"><span style="color:#C99B30;font-weight:800;flex-shrink:0;margin-top:3px;font-size:13px;">&#10003;</span><p style="font-size:14px;line-height:1.6;color:#fff;margin:0;">You&rsquo;re a RUQ woman who&rsquo;s ready for the next chapter of what Freedom opened up</p></div>
+        <div style="display:flex;gap:12px;margin-bottom:13px;align-items:flex-start;"><span style="color:#C99B30;font-weight:800;flex-shrink:0;margin-top:3px;font-size:13px;">&#10003;</span><p style="font-size:14px;line-height:1.6;color:#fff;margin:0;">You&rsquo;ve heard about Rise Up Kings from someone who changed, and you&rsquo;re ready to see it for yourself</p></div>
+        <div style="display:flex;gap:12px;margin-bottom:0;align-items:flex-start;"><span style="color:#C99B30;font-weight:800;flex-shrink:0;margin-top:3px;font-size:13px;">&#10003;</span><p style="font-size:14px;line-height:1.6;color:#fff;margin:0;">You&rsquo;re a Christian man or woman who wants a weekend that rebuilds Faith, Family, Fitness, and Finance at the same time</p></div>
       </div>
       <!-- NOT FOR panel -->
       <div style="background:rgba(30,30,32,0.75);border-left:4px solid #1FA0A8;padding:32px 28px;">
         <p style="font-weight:800;font-size:12px;letter-spacing:0.14em;text-transform:uppercase;color:#1FA0A8;margin-bottom:18px;">This is not for you if&hellip;</p>
-        <div style="display:flex;gap:12px;margin-bottom:13px;align-items:flex-start;"><span style="color:#1FA0A8;font-weight:800;flex-shrink:0;margin-top:3px;font-size:13px;">&mdash;</span><p style="font-size:14px;line-height:1.6;color:rgba(255,255,255,0.5);margin:0;">You&rsquo;re looking for a conference to get hyped up at and forget by Wednesday</p></div>
-        <div style="display:flex;gap:12px;margin-bottom:13px;align-items:flex-start;"><span style="color:#1FA0A8;font-weight:800;flex-shrink:0;margin-top:3px;font-size:13px;">&mdash;</span><p style="font-size:14px;line-height:1.6;color:rgba(255,255,255,0.5);margin:0;">You think your faith and your life should stay in separate rooms</p></div>
-        <div style="display:flex;gap:12px;margin-bottom:13px;align-items:flex-start;"><span style="color:#1FA0A8;font-weight:800;flex-shrink:0;margin-top:3px;font-size:13px;">&mdash;</span><p style="font-size:14px;line-height:1.6;color:rgba(255,255,255,0.5);margin:0;">You&rsquo;re not willing to sit in a room with men and women who&rsquo;ve done the work and will tell you the truth</p></div>
-        <div style="display:flex;gap:12px;margin-bottom:0;align-items:flex-start;"><span style="color:#1FA0A8;font-weight:800;flex-shrink:0;margin-top:3px;font-size:13px;">&mdash;</span><p style="font-size:14px;line-height:1.6;color:rgba(255,255,255,0.5);margin:0;">You&rsquo;ve decided this is just how life is going to feel from here on out</p></div>
+        <div style="display:flex;gap:12px;margin-bottom:13px;align-items:flex-start;"><span style="color:#1FA0A8;font-weight:800;flex-shrink:0;margin-top:3px;font-size:13px;">&mdash;</span><p style="font-size:14px;line-height:1.6;color:rgba(255,255,255,0.85);margin:0;">You&rsquo;re looking for a conference to get hyped up at and forget by Wednesday</p></div>
+        <div style="display:flex;gap:12px;margin-bottom:13px;align-items:flex-start;"><span style="color:#1FA0A8;font-weight:800;flex-shrink:0;margin-top:3px;font-size:13px;">&mdash;</span><p style="font-size:14px;line-height:1.6;color:rgba(255,255,255,0.85);margin:0;">You think your faith and your life should stay in separate rooms</p></div>
+        <div style="display:flex;gap:12px;margin-bottom:13px;align-items:flex-start;"><span style="color:#1FA0A8;font-weight:800;flex-shrink:0;margin-top:3px;font-size:13px;">&mdash;</span><p style="font-size:14px;line-height:1.6;color:rgba(255,255,255,0.85);margin:0;">You&rsquo;re not willing to sit in a room with men and women who&rsquo;ve done the work and will tell you the truth</p></div>
+        <div style="display:flex;gap:12px;margin-bottom:0;align-items:flex-start;"><span style="color:#1FA0A8;font-weight:800;flex-shrink:0;margin-top:3px;font-size:13px;">&mdash;</span><p style="font-size:14px;line-height:1.6;color:rgba(255,255,255,0.85);margin:0;">You&rsquo;ve decided this is just how life is going to feel from here on out</p></div>
       </div>
     </div>
     <!-- CTA -->
@@ -808,36 +864,48 @@
         <span style="color:var(--gold-400);">Fitness.</span> Finances.
       </h2>
       <div style="width:64px;height:2px;background:rgba(201,155,48,0.4);margin:28px auto;"></div>
-      <p style="font-size:16px;line-height:1.75;color:rgba(255,255,255,0.5);max-width:520px;margin:0 auto 56px;">Most faith-driven leaders optimise one pillar and let the other three burn. RUKCON 11 is three days of rebuilding all four at once.</p>
+      <p style="font-size:16px;line-height:1.75;color:rgba(255,255,255,0.85);max-width:520px;margin:0 auto 56px;">Most faith-driven leaders optimise one pillar and let the other three burn. RUKCON 11 is three days of rebuilding all four at once.</p>
     </div>
     <div class="pillar-grid" style="display:grid;grid-template-columns:repeat(4,1fr);gap:0;">
       <!-- Faith -->
-      <div class="pillar-col" style="border-left:1px solid rgba(255,255,255,0.06);padding:40px 28px;position:relative;">
-        <div style="position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(to right,var(--gold-400),transparent);"></div>
-        <p style="font-size:56px;font-weight:900;line-height:1;color:rgba(201,155,48,0.12);margin-bottom:16px;letter-spacing:-0.04em;">01</p>
-        <p style="font-size:12px;font-weight:900;letter-spacing:0.22em;text-transform:uppercase;color:var(--gold-400);margin-bottom:16px;">Faith</p>
-        <p style="font-size:14px;line-height:1.75;color:rgba(255,255,255,0.55);margin:0;">Keep God at the center of your life. Grow closer in your relationship with Him, get more disciplined in your walk, and sharpen spiritually with other Christians doing the same.</p>
+      <div class="pillar-col" style="border-left:1px solid rgba(255,255,255,0.06);position:relative;display:flex;flex-direction:column;">
+        <div style="position:absolute;top:0;left:0;right:0;height:3px;z-index:2;background:linear-gradient(to right,var(--gold-400),transparent);"></div>
+        <img src="public/images/Faith.jpg" alt="Faith" style="width:100%;height:200px;object-fit:cover;object-position:center;display:block;">
+        <div style="padding:28px 24px;flex:1;">
+          <p style="font-size:48px;font-weight:900;line-height:1;color:rgba(201,155,48,0.12);margin-bottom:14px;letter-spacing:-0.04em;">01</p>
+          <p style="font-size:12px;font-weight:900;letter-spacing:0.22em;text-transform:uppercase;color:var(--gold-400);margin-bottom:14px;">Faith</p>
+          <p style="font-size:14px;line-height:1.75;color:#fff;margin:0;">Keep God at the center of your life. Grow closer in your relationship with Him, get more disciplined in your walk, and sharpen spiritually with other Christians doing the same.</p>
+        </div>
       </div>
       <!-- Family -->
-      <div class="pillar-col" style="border-left:1px solid rgba(255,255,255,0.06);padding:40px 28px;position:relative;">
-        <div style="position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(to right,var(--gold-400),transparent);"></div>
-        <p style="font-size:56px;font-weight:900;line-height:1;color:rgba(201,155,48,0.12);margin-bottom:16px;letter-spacing:-0.04em;">02</p>
-        <p style="font-size:12px;font-weight:900;letter-spacing:0.22em;text-transform:uppercase;color:var(--gold-400);margin-bottom:16px;">Family</p>
-        <p style="font-size:14px;line-height:1.75;color:rgba(255,255,255,0.55);margin:0;">Improve the connection and intimacy in your marriage. Become the father or mother you were designed to be. Break down the walls that keep you from being truly present with the people in your house.</p>
+      <div class="pillar-col" style="border-left:1px solid rgba(255,255,255,0.06);position:relative;display:flex;flex-direction:column;">
+        <div style="position:absolute;top:0;left:0;right:0;height:3px;z-index:2;background:linear-gradient(to right,var(--gold-400),transparent);"></div>
+        <img src="public/images/Family.jpg" alt="Family" style="width:100%;height:200px;object-fit:cover;object-position:center;display:block;">
+        <div style="padding:28px 24px;flex:1;">
+          <p style="font-size:48px;font-weight:900;line-height:1;color:rgba(201,155,48,0.12);margin-bottom:14px;letter-spacing:-0.04em;">02</p>
+          <p style="font-size:12px;font-weight:900;letter-spacing:0.22em;text-transform:uppercase;color:var(--gold-400);margin-bottom:14px;">Family</p>
+          <p style="font-size:14px;line-height:1.75;color:#fff;margin:0;">Improve the connection and intimacy in your marriage. Become the father or mother you were designed to be. Break down the walls that keep you from being truly present with the people in your house.</p>
+        </div>
       </div>
       <!-- Fitness -->
-      <div class="pillar-col" style="border-left:1px solid rgba(255,255,255,0.06);padding:40px 28px;position:relative;">
-        <div style="position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(to right,var(--gold-400),transparent);"></div>
-        <p style="font-size:56px;font-weight:900;line-height:1;color:rgba(201,155,48,0.12);margin-bottom:16px;letter-spacing:-0.04em;">03</p>
-        <p style="font-size:12px;font-weight:900;letter-spacing:0.22em;text-transform:uppercase;color:var(--gold-400);margin-bottom:16px;">Fitness</p>
-        <p style="font-size:14px;line-height:1.75;color:rgba(255,255,255,0.55);margin:0;">The path to success has cost too many men and women their health. RUKCON 11 is where that pattern gets broken. You&rsquo;ll stop treating your body like it doesn&rsquo;t matter.</p>
+      <div class="pillar-col" style="border-left:1px solid rgba(255,255,255,0.06);position:relative;display:flex;flex-direction:column;">
+        <div style="position:absolute;top:0;left:0;right:0;height:3px;z-index:2;background:linear-gradient(to right,var(--gold-400),transparent);"></div>
+        <img src="public/images/Fitness.jpg" alt="Fitness" style="width:100%;height:200px;object-fit:cover;object-position:center;display:block;">
+        <div style="padding:28px 24px;flex:1;">
+          <p style="font-size:48px;font-weight:900;line-height:1;color:rgba(201,155,48,0.12);margin-bottom:14px;letter-spacing:-0.04em;">03</p>
+          <p style="font-size:12px;font-weight:900;letter-spacing:0.22em;text-transform:uppercase;color:var(--gold-400);margin-bottom:14px;">Fitness</p>
+          <p style="font-size:14px;line-height:1.75;color:#fff;margin:0;">The path to success has cost too many men and women their health. RUKCON 11 is where that pattern gets broken. You&rsquo;ll stop treating your body like it doesn&rsquo;t matter.</p>
+        </div>
       </div>
       <!-- Finances -->
-      <div class="pillar-col" style="border-left:1px solid rgba(255,255,255,0.06);padding:40px 28px;position:relative;">
-        <div style="position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(to right,var(--gold-400),transparent);"></div>
-        <p style="font-size:56px;font-weight:900;line-height:1;color:rgba(201,155,48,0.12);margin-bottom:16px;letter-spacing:-0.04em;">04</p>
-        <p style="font-size:12px;font-weight:900;letter-spacing:0.22em;text-transform:uppercase;color:var(--gold-400);margin-bottom:16px;">Finances</p>
-        <p style="font-size:14px;line-height:1.75;color:rgba(255,255,255,0.55);margin:0;">Big financial goals require real skill. You&rsquo;ll learn the mindsets the wealthy operate from, the most effective ways to scale a business, and where the market is actually heading &mdash; from Skylar Lewis and a roster of speakers who&rsquo;ve done it.</p>
+      <div class="pillar-col" style="border-left:1px solid rgba(255,255,255,0.06);position:relative;display:flex;flex-direction:column;">
+        <div style="position:absolute;top:0;left:0;right:0;height:3px;z-index:2;background:linear-gradient(to right,var(--gold-400),transparent);"></div>
+        <img src="public/images/Finances.jpg" alt="Finances" style="width:100%;height:200px;object-fit:cover;object-position:center;display:block;">
+        <div style="padding:28px 24px;flex:1;">
+          <p style="font-size:48px;font-weight:900;line-height:1;color:rgba(201,155,48,0.12);margin-bottom:14px;letter-spacing:-0.04em;">04</p>
+          <p style="font-size:12px;font-weight:900;letter-spacing:0.22em;text-transform:uppercase;color:var(--gold-400);margin-bottom:14px;">Finances</p>
+          <p style="font-size:14px;line-height:1.75;color:#fff;margin:0;">Big financial goals require real skill. You&rsquo;ll learn the mindsets the wealthy operate from, the most effective ways to scale a business, and where the market is actually heading &mdash; from Skylar Lewis and a roster of speakers who&rsquo;ve done it.</p>
+        </div>
       </div>
     </div>
   </div>
@@ -889,19 +957,30 @@
 
     <p class="s4-fn">All times CDT. Dress code for sessions: black shirt, black shorts, athletic shoes. Breakfast not provided.</p>
 
-    <!-- Freedom card -->
-    <div id="freedom" style="margin-top:40px;border-radius:16px;overflow:hidden;position:relative;padding:56px 40px 52px;text-align:center;background:radial-gradient(ellipse at 50% 0%,#1FA0A8 0%,#0a3d43 55%,#072e34 100%);border-top:3px solid #46AEB4;">
-      <!-- ghost word -->
-      <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;pointer-events:none;user-select:none;overflow:hidden;">
-        <span style="font-size:clamp(80px,18vw,200px);font-weight:900;letter-spacing:-0.05em;color:rgba(255,255,255,0.05);line-height:1;">FREEDOM</span>
+  </div><!-- /s4-inner -->
+</section>
+
+<!-- ── FREEDOM / RISE UP QUEENS ── -->
+<section id="freedom" style="background:#f0ede7;padding:80px 40px;">
+  <div style="max-width:1100px;margin:0 auto;display:grid;grid-template-columns:1fr 380px;gap:64px;align-items:center;border-top:4px solid #E8488A;padding-top:64px;">
+    <!-- Text column -->
+    <div>
+      <div style="display:inline-flex;align-items:center;gap:10px;background:#E8488A;color:#fff;font-size:11px;font-weight:800;letter-spacing:0.18em;text-transform:uppercase;padding:8px 18px;border-radius:100px;margin-bottom:20px;">
+        <span style="width:7px;height:7px;border-radius:50%;background:#fff;flex-shrink:0;opacity:0.85;"></span>
+        Rise Up Queens &middot; Freedom
       </div>
-      <!-- content -->
-      <div style="position:relative;z-index:1;">
-        <p style="font-size:10px;font-weight:800;letter-spacing:0.22em;text-transform:uppercase;color:#7dd8dd;margin-bottom:16px;">Rise Up Queens &middot; Freedom</p>
-        <h3 style="font-size:clamp(22px,3.5vw,40px);font-weight:900;text-transform:uppercase;letter-spacing:-0.025em;color:#ffffff;line-height:1.05;margin-bottom:16px;">YOUR WIFE HAS<br>HER OWN SEAT<br>THIS WEEKEND.</h3>
-        <p style="font-size:16px;line-height:1.75;color:rgba(255,255,255,0.65);max-width:500px;margin:0 auto 32px;">Freedom runs parallel to RUKCON 11 starting on Day One. Designed by Jessica Lewis for the women who are done watching their husbands change from the sidelines. Day Two and Three she sits side-by-side with you in the main room.</p>
-        <a href="#reserve" class="btn-gold" style="font-size:14px;padding:16px 52px;">Register Your Wife for Freedom</a>
-        <p style="font-size:11px;color:rgba(255,255,255,0.25);letter-spacing:0.1em;text-transform:uppercase;margin-top:16px;">Registration Separate</p>
+      <div style="width:48px;height:3px;background:#E8488A;margin-bottom:24px;"></div>
+      <h3 style="font-size:clamp(28px,4vw,52px);font-weight:900;text-transform:uppercase;letter-spacing:-0.025em;color:#141414;line-height:1.05;margin-bottom:20px;">YOUR WIFE HAS<br>HER OWN SEAT<br>THIS WEEKEND.</h3>
+      <p style="font-size:16px;line-height:1.75;color:rgba(20,20,20,0.7);max-width:480px;margin-bottom:32px;">Freedom runs parallel to RUKCON 11 starting on Day One. Designed by <strong style="color:#E8488A;">Jessica Lewis</strong> for the women who are done watching their husbands change from the sidelines. Day Two and Three she sits side-by-side with you in the main room.</p>
+      <a href="#reserve" style="display:inline-block;background:#E8488A;color:#fff;font-family:'Montserrat',sans-serif;font-weight:800;font-size:14px;letter-spacing:0.1em;text-transform:uppercase;padding:16px 52px;border-radius:6px;text-decoration:none;">Register Your Wife for Freedom</a>
+      <p style="font-size:11px;color:rgba(20,20,20,0.35);letter-spacing:0.1em;text-transform:uppercase;margin-top:14px;">Registration Separate</p>
+    </div>
+    <!-- Photo column -->
+    <div style="position:relative;">
+      <img src="public/images/Jessica Lewis.jpg" alt="Jessica Lewis" style="width:100%;height:460px;object-fit:cover;object-position:top center;border-radius:12px;display:block;box-shadow:0 0 60px rgba(232,72,138,0.2);border:2px solid rgba(232,72,138,0.35);">
+      <div style="position:absolute;bottom:16px;left:16px;background:rgba(0,0,0,0.72);padding:10px 16px;border-left:3px solid #E8488A;">
+        <p style="font-size:12px;font-weight:900;letter-spacing:0.12em;text-transform:uppercase;color:#E8488A;margin:0 0 2px;">Jessica Lewis</p>
+        <span style="font-size:10px;color:rgba(255,255,255,0.5);letter-spacing:0.08em;text-transform:uppercase;">Founder, Rise Up Queens</span>
       </div>
     </div>
   </div>
@@ -919,23 +998,23 @@
   <div class="s6-carousel-wrap">
     <div class="s6-track">
       <!-- SET 1 -->
-      <div class="s6-card"><div class="s6-photo"><span class="s6-initial">C</span><div class="s6-silhouette"></div><div class="s6-overlay"></div></div><div class="s6-info"><span class="s6-tag">Fitness</span><p class="s6-name">Coach Kav</p><p class="s6-role">RUK Fitness Standard</p></div></div>
-      <div class="s6-card"><div class="s6-photo"><span class="s6-initial">B</span><div class="s6-silhouette"></div><div class="s6-overlay"></div></div><div class="s6-info"><span class="s6-tag">Faith</span><p class="s6-name">Brant Hansen</p><p class="s6-role">Author &amp; Speaker</p></div></div>
-      <div class="s6-card"><div class="s6-photo"><span class="s6-initial">N</span><div class="s6-silhouette"></div><div class="s6-overlay"></div></div><div class="s6-info"><span class="s6-tag">Business</span><p class="s6-name">Nate Burkhalter</p><p class="s6-role">Entrepreneur</p></div></div>
-      <div class="s6-card"><div class="s6-photo"><span class="s6-initial">SR</span><div class="s6-silhouette"></div><div class="s6-overlay"></div></div><div class="s6-info"><span class="s6-tag">Marriage</span><p class="s6-name">Sean &amp; Lanette Reed</p><p class="s6-role">Marriage Coaches</p></div></div>
-      <div class="s6-card"><div class="s6-photo"><span class="s6-initial">M</span><div class="s6-silhouette"></div><div class="s6-overlay"></div></div><div class="s6-info"><span class="s6-tag">Faith</span><p class="s6-name">Marty B</p><p class="s6-role">Speaker</p></div></div>
-      <div class="s6-card"><div class="s6-photo"><span class="s6-initial">D</span><div class="s6-silhouette"></div><div class="s6-overlay"></div></div><div class="s6-info"><span class="s6-tag">Purpose</span><p class="s6-name">Damon West</p><p class="s6-role">Author &amp; Speaker</p></div></div>
-      <div class="s6-card"><div class="s6-photo"><span class="s6-initial">R</span><div class="s6-silhouette"></div><div class="s6-overlay"></div></div><div class="s6-info"><span class="s6-tag">Business</span><p class="s6-name">Ruslan KD</p><p class="s6-role">Entrepreneur</p></div></div>
-      <div class="s6-card"><div class="s6-photo"><span class="s6-initial">S</span><div class="s6-silhouette"></div><div class="s6-overlay"></div></div><div class="s6-info"><span class="s6-tag">Family</span><p class="s6-name">Sean Lowe</p><p class="s6-role">Speaker</p></div></div>
+      <div class="s6-card"><div class="s6-photo"><img src="public/images/Coach Kav.png" alt="Coach Kav" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:top center;"><div class="s6-overlay"></div></div><div class="s6-info"><span class="s6-tag">Fitness</span><p class="s6-name">Coach Kav</p><p class="s6-role">RUK Fitness Standard</p></div></div>
+      <div class="s6-card"><div class="s6-photo"><img src="public/images/Brant Hansen.png" alt="Brant Hansen" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:top center;"><div class="s6-overlay"></div></div><div class="s6-info"><span class="s6-tag">Faith</span><p class="s6-name">Brant Hansen</p><p class="s6-role">Author &amp; Speaker</p></div></div>
+      <div class="s6-card"><div class="s6-photo"><img src="public/images/Nate Burkhalter.png" alt="Nate Burkhalter" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:top center;"><div class="s6-overlay"></div></div><div class="s6-info"><span class="s6-tag">Business</span><p class="s6-name">Nate Burkhalter</p><p class="s6-role">Entrepreneur</p></div></div>
+      <div class="s6-card"><div class="s6-photo"><img src="public/images/Sean&amp;lanette Reed.png" alt="Sean &amp; Lanette Reed" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:top center;"><div class="s6-overlay"></div></div><div class="s6-info"><span class="s6-tag">Marriage</span><p class="s6-name">Sean &amp; Lanette Reed</p><p class="s6-role">Marriage Coaches</p></div></div>
+      <div class="s6-card"><div class="s6-photo"><img src="public/images/Marty B.png" alt="Marty B" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:top center;"><div class="s6-overlay"></div></div><div class="s6-info"><span class="s6-tag">Faith</span><p class="s6-name">Marty B</p><p class="s6-role">Speaker</p></div></div>
+      <div class="s6-card"><div class="s6-photo"><img src="public/images/Damon West.png" alt="Damon West" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:top center;"><div class="s6-overlay"></div></div><div class="s6-info"><span class="s6-tag">Purpose</span><p class="s6-name">Damon West</p><p class="s6-role">Author &amp; Speaker</p></div></div>
+      <div class="s6-card"><div class="s6-photo"><img src="public/images/Ruslan KD.png" alt="Ruslan KD" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:top center;"><div class="s6-overlay"></div></div><div class="s6-info"><span class="s6-tag">Business</span><p class="s6-name">Ruslan KD</p><p class="s6-role">Entrepreneur</p></div></div>
+      <div class="s6-card"><div class="s6-photo"><img src="public/images/Sean Lowe.png" alt="Sean Lowe" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:top center;"><div class="s6-overlay"></div></div><div class="s6-info"><span class="s6-tag">Family</span><p class="s6-name">Sean Lowe</p><p class="s6-role">Speaker</p></div></div>
       <!-- SET 2 — duplicate for seamless loop -->
-      <div class="s6-card"><div class="s6-photo"><span class="s6-initial">C</span><div class="s6-silhouette"></div><div class="s6-overlay"></div></div><div class="s6-info"><span class="s6-tag">Fitness</span><p class="s6-name">Coach Kav</p><p class="s6-role">RUK Fitness Standard</p></div></div>
-      <div class="s6-card"><div class="s6-photo"><span class="s6-initial">B</span><div class="s6-silhouette"></div><div class="s6-overlay"></div></div><div class="s6-info"><span class="s6-tag">Faith</span><p class="s6-name">Brant Hansen</p><p class="s6-role">Author &amp; Speaker</p></div></div>
-      <div class="s6-card"><div class="s6-photo"><span class="s6-initial">N</span><div class="s6-silhouette"></div><div class="s6-overlay"></div></div><div class="s6-info"><span class="s6-tag">Business</span><p class="s6-name">Nate Burkhalter</p><p class="s6-role">Entrepreneur</p></div></div>
-      <div class="s6-card"><div class="s6-photo"><span class="s6-initial">SR</span><div class="s6-silhouette"></div><div class="s6-overlay"></div></div><div class="s6-info"><span class="s6-tag">Marriage</span><p class="s6-name">Sean &amp; Lanette Reed</p><p class="s6-role">Marriage Coaches</p></div></div>
-      <div class="s6-card"><div class="s6-photo"><span class="s6-initial">M</span><div class="s6-silhouette"></div><div class="s6-overlay"></div></div><div class="s6-info"><span class="s6-tag">Faith</span><p class="s6-name">Marty B</p><p class="s6-role">Speaker</p></div></div>
-      <div class="s6-card"><div class="s6-photo"><span class="s6-initial">D</span><div class="s6-silhouette"></div><div class="s6-overlay"></div></div><div class="s6-info"><span class="s6-tag">Purpose</span><p class="s6-name">Damon West</p><p class="s6-role">Author &amp; Speaker</p></div></div>
-      <div class="s6-card"><div class="s6-photo"><span class="s6-initial">R</span><div class="s6-silhouette"></div><div class="s6-overlay"></div></div><div class="s6-info"><span class="s6-tag">Business</span><p class="s6-name">Ruslan KD</p><p class="s6-role">Entrepreneur</p></div></div>
-      <div class="s6-card"><div class="s6-photo"><span class="s6-initial">S</span><div class="s6-silhouette"></div><div class="s6-overlay"></div></div><div class="s6-info"><span class="s6-tag">Family</span><p class="s6-name">Sean Lowe</p><p class="s6-role">Speaker</p></div></div>
+      <div class="s6-card"><div class="s6-photo"><img src="public/images/Coach Kav.png" alt="Coach Kav" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:top center;"><div class="s6-overlay"></div></div><div class="s6-info"><span class="s6-tag">Fitness</span><p class="s6-name">Coach Kav</p><p class="s6-role">RUK Fitness Standard</p></div></div>
+      <div class="s6-card"><div class="s6-photo"><img src="public/images/Brant Hansen.png" alt="Brant Hansen" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:top center;"><div class="s6-overlay"></div></div><div class="s6-info"><span class="s6-tag">Faith</span><p class="s6-name">Brant Hansen</p><p class="s6-role">Author &amp; Speaker</p></div></div>
+      <div class="s6-card"><div class="s6-photo"><img src="public/images/Nate Burkhalter.png" alt="Nate Burkhalter" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:top center;"><div class="s6-overlay"></div></div><div class="s6-info"><span class="s6-tag">Business</span><p class="s6-name">Nate Burkhalter</p><p class="s6-role">Entrepreneur</p></div></div>
+      <div class="s6-card"><div class="s6-photo"><img src="public/images/Sean&amp;lanette Reed.png" alt="Sean &amp; Lanette Reed" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:top center;"><div class="s6-overlay"></div></div><div class="s6-info"><span class="s6-tag">Marriage</span><p class="s6-name">Sean &amp; Lanette Reed</p><p class="s6-role">Marriage Coaches</p></div></div>
+      <div class="s6-card"><div class="s6-photo"><img src="public/images/Marty B.png" alt="Marty B" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:top center;"><div class="s6-overlay"></div></div><div class="s6-info"><span class="s6-tag">Faith</span><p class="s6-name">Marty B</p><p class="s6-role">Speaker</p></div></div>
+      <div class="s6-card"><div class="s6-photo"><img src="public/images/Damon West.png" alt="Damon West" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:top center;"><div class="s6-overlay"></div></div><div class="s6-info"><span class="s6-tag">Purpose</span><p class="s6-name">Damon West</p><p class="s6-role">Author &amp; Speaker</p></div></div>
+      <div class="s6-card"><div class="s6-photo"><img src="public/images/Ruslan KD.png" alt="Ruslan KD" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:top center;"><div class="s6-overlay"></div></div><div class="s6-info"><span class="s6-tag">Business</span><p class="s6-name">Ruslan KD</p><p class="s6-role">Entrepreneur</p></div></div>
+      <div class="s6-card"><div class="s6-photo"><img src="public/images/Sean Lowe.png" alt="Sean Lowe" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:top center;"><div class="s6-overlay"></div></div><div class="s6-info"><span class="s6-tag">Family</span><p class="s6-name">Sean Lowe</p><p class="s6-role">Speaker</p></div></div>
     </div>
   </div>
 </section>
@@ -1000,14 +1079,14 @@
       <p class="s9-title">Founder, Rise Up Kings</p>
       <p class="s9-body">I started this movement because I lived the version of success that wasn&rsquo;t working.</p>
       <p class="s9-body">I borrowed $1,000 to start my first business, grew Superior Restoration to $13 million, and sold the company to private equity. And along the way I almost lost my marriage, my health, and my faith to the grind of building it all.</p>
-      <p class="s9-body">The Refinery is where a man rebuilds. RUKCON is where he deepens what he rebuilt, and where he brings the people he loves into the work he&rsquo;s been doing alone.</p>
+      <p class="s9-body" style="font-size:15px;font-weight:700;color:#0a3d43;background:rgba(31,160,168,0.08);border-left:4px solid #1FA0A8;padding:16px 18px;line-height:1.65;border-radius:0 6px 6px 0;margin-bottom:14px;"><span style="color:#C99B30;">The Refinery</span> is where a man rebuilds. <span style="color:#C99B30;">RUKCON</span> is where he deepens what he rebuilt, and where he brings the people he loves into the work he&rsquo;s been doing alone.</p>
       <p class="s9-body">If you&rsquo;ve been through the Refinery, you know what this weekend will do for you. If you haven&rsquo;t&hellip; this is the room designed for you to walk into.</p>
-      <div class="s9-stanza">
-        Bring your wife.<br>
-        Bring your friend.<br>
-        Bring your sons.<br>
-        Bring the version of yourself you&rsquo;ve been quietly tired of.<br>
-        We&rsquo;ll take it from there.
+      <div style="margin:20px 0 28px;">
+        <p style="font-size:15px;font-weight:700;color:#141414;line-height:1;padding:12px 0 12px 20px;border-left:3px solid var(--gold-400);margin-bottom:6px;">Bring your wife.</p>
+        <p style="font-size:15px;font-weight:700;color:#141414;line-height:1;padding:12px 0 12px 20px;border-left:3px solid var(--gold-400);margin-bottom:6px;">Bring your friend.</p>
+        <p style="font-size:15px;font-weight:700;color:#141414;line-height:1;padding:12px 0 12px 20px;border-left:3px solid var(--gold-400);margin-bottom:6px;">Bring your sons.</p>
+        <p style="font-size:15px;font-weight:700;color:#141414;line-height:1;padding:12px 0 12px 20px;border-left:3px solid var(--gold-400);margin-bottom:6px;">Bring the version of yourself you&rsquo;ve been quietly tired of.</p>
+        <p style="font-size:12px;font-weight:800;letter-spacing:0.12em;text-transform:uppercase;color:var(--gold-400);padding:12px 0 12px 20px;margin-bottom:0;">We&rsquo;ll take it from there.</p>
       </div>
       <div><a href="#reserve" class="btn-gold">Reserve Your Seat</a></div>
     </div>
@@ -1015,35 +1094,16 @@
 </section>
 
 <!-- ── SECTION 10: TICKETS ── -->
-<section id="reserve">
-  <div class="s10-inner">
-    <p class="s10-eyebrow">Reserve Your Seat</p>
+<section id="reserve" style="position:relative;background:#0e0e0e;">
+  <!-- bg photo -->
+  <div style="position:absolute;inset:0;z-index:0;overflow:hidden;">
+    <img src="public/images/RUKCON7-57.jpg" alt="" style="width:100%;height:100%;object-fit:cover;object-position:center top;display:block;">
+    <div style="position:absolute;inset:0;background:linear-gradient(to bottom,rgba(10,10,10,0.88) 0%,rgba(10,10,10,0.82) 50%,rgba(10,10,10,0.92) 100%);"></div>
+  </div>
+  <div style="position:relative;z-index:1;">
+    <div class="s10-inner">
     <h2 class="s10-heading">Choose Your<br>Experience</h2>
     <p class="s10-sub">Price increases as the date approaches. Lock in now.</p>
-
-    <!-- Premium timeline strip -->
-    <div class="s10-timeline">
-      <div class="s10-phase hot">
-        <div class="ph-label">REF MM Exclusive</div>
-        <div class="ph-price">$895</div>
-        <div class="ph-date">May 12 ONLY</div>
-      </div>
-      <div class="s10-phase hot">
-        <div class="ph-label">Early Bird</div>
-        <div class="ph-price">$995</div>
-        <div class="ph-date">May 13 &ndash; 17</div>
-      </div>
-      <div class="s10-phase">
-        <div class="ph-label">Standard</div>
-        <div class="ph-price">$1,495</div>
-        <div class="ph-date">May 17 &ndash; Mid Aug</div>
-      </div>
-      <div class="s10-phase">
-        <div class="ph-label">Full Price</div>
-        <div class="ph-price">$1,995</div>
-        <div class="ph-date">Mid Aug &ndash; Day-of</div>
-      </div>
-    </div>
 
     <!-- Ticket cards -->
     <div class="s10-cards">
@@ -1052,7 +1112,6 @@
         <div class="s10-tier">Premium</div>
         <div class="s10-cur-phase">REF MM Exclusive</div>
         <div class="s10-cur-price">$895</div>
-        <div class="s10-cur-window">May 12 ONLY &mdash; price goes to $995 on May 13</div>
         <ul class="s10-incl">
           <li>All 3 days: General + Breakout sessions</li>
           <li>VIP seating &amp; priority check-in</li>
@@ -1064,6 +1123,11 @@
           <li>Exclusive recognition moment</li>
         </ul>
         <div class="s10-cta"><a href="#" class="btn-gold" style="display:block;text-align:center;">Reserve Premium &mdash; $895</a></div>
+        <div style="margin-top:16px;border-top:1px solid rgba(255,255,255,0.08);padding-top:14px;display:flex;flex-direction:column;gap:6px;">
+          <div style="display:flex;justify-content:space-between;font-size:11px;font-weight:700;letter-spacing:0.06em;color:rgba(255,255,255,0.55);"><span>Early Bird</span><span>$995 &nbsp;&middot;&nbsp; May 13&ndash;17</span></div>
+          <div style="display:flex;justify-content:space-between;font-size:11px;font-weight:700;letter-spacing:0.06em;color:rgba(255,255,255,0.55);"><span>Standard</span><span>$1,495 &nbsp;&middot;&nbsp; May 17&ndash;Mid Aug</span></div>
+          <div style="display:flex;justify-content:space-between;font-size:11px;font-weight:700;letter-spacing:0.06em;color:rgba(255,255,255,0.55);"><span>Full Price</span><span>$1,995 &nbsp;&middot;&nbsp; Mid Aug&ndash;Day-of</span></div>
+        </div>
       </div>
 
       <!-- General -->
@@ -1071,7 +1135,6 @@
         <div class="s10-tier">General Admission</div>
         <div class="s10-cur-phase">Early Bird</div>
         <div class="s10-cur-price">$495</div>
-        <div class="s10-cur-window">May 13 &ndash; 17 &mdash; price goes to $695 on May 17</div>
         <ul class="s10-incl">
           <li>All 3 days: Main stage sessions</li>
           <li>General seating</li>
@@ -1080,6 +1143,10 @@
           <li>Official RUKCON T-shirt</li>
         </ul>
         <div class="s10-cta"><a href="#" class="btn-ghost" style="display:block;text-align:center;">Reserve General &mdash; $495</a></div>
+        <div style="margin-top:16px;border-top:1px solid rgba(255,255,255,0.08);padding-top:14px;display:flex;flex-direction:column;gap:6px;">
+          <div style="display:flex;justify-content:space-between;font-size:11px;font-weight:700;letter-spacing:0.06em;color:rgba(255,255,255,0.55);"><span>Standard</span><span>$695 &nbsp;&middot;&nbsp; May 17&ndash;Mid Aug</span></div>
+          <div style="display:flex;justify-content:space-between;font-size:11px;font-weight:700;letter-spacing:0.06em;color:rgba(255,255,255,0.55);"><span>Full Price</span><span>$995 &nbsp;&middot;&nbsp; Mid Aug&ndash;Day-of</span></div>
+        </div>
       </div>
     </div>
 
@@ -1088,16 +1155,19 @@
       <p class="s10-addons-label">Exclusive Access &mdash; Add-Ons</p>
       <div class="s10-addon-grid">
         <div class="s10-addon">
+          <div class="s10-addon-num">01</div>
           <div class="s10-addon-name">Business Peer Forum</div>
           <div class="s10-addon-tag">Day One &mdash; Refinery + Gold Mastermind members only</div>
           <div class="s10-addon-body">Complimentary component of the Refinery Mastermind program.</div>
         </div>
         <div class="s10-addon">
+          <div class="s10-addon-num">02</div>
           <div class="s10-addon-name">Coaching Client Dinner</div>
           <div class="s10-addon-tag">Invitation only</div>
           <div class="s10-addon-body">An exclusive dinner for prospective coaching clients. Request more info on the application form.</div>
         </div>
         <div class="s10-addon">
+          <div class="s10-addon-num">03</div>
           <div class="s10-addon-name">Gala Dinner Guest Ticket</div>
           <div class="s10-addon-tag">For guests not attending RUKCON 11</div>
           <div class="s10-addon-body">A night of honor, recognition, and connection. Already included in your RUKCON 11 ticket.</div>
@@ -1110,19 +1180,36 @@
       <p class="s10-hotel-label">Where You&rsquo;ll Stay</p>
       <div class="s10-hotel-grid">
         <div class="s10-hotel-card">
-          <div class="s10-hotel-tag">Host Hotel</div>
-          <div class="s10-hotel-name">Hilton Dallas &mdash; Plano Granite Park</div>
-          <div class="s10-hotel-desc">Next to The Boardwalk. Outdoor patio with fire pit, pool, and upscale bar Prairie Fire. Fitness center, restaurant, and Starbucks.</div>
-          <a href="#" class="s10-hotel-link">Book Your Room &rarr;</a>
+          <img src="public/images/HiltonDallasPlanoGranitePark_Pool6.jpg" alt="Hilton Dallas Plano Granite Park" class="s10-hotel-photo">
+          <div class="s10-hotel-body">
+            <div class="s10-hotel-tag">Host Hotel</div>
+            <div class="s10-hotel-name">Hilton Dallas &mdash;<br>Plano Granite Park</div>
+            <div class="s10-hotel-sub">Next to The Boardwalk &middot; Plano, TX</div>
+            <ul class="s10-hotel-feats">
+              <li>Outdoor patio with fire pit, pool, and upscale bar Prairie Fire</li>
+              <li>Fitness center, restaurant, and Carso Market for ready-made meals</li>
+              <li>Starbucks on-site</li>
+            </ul>
+            <a href="#" class="s10-hotel-link">Book Your Room &rarr;</a>
+          </div>
         </div>
         <div class="s10-hotel-card">
-          <div class="s10-hotel-tag">Overflow Hotel</div>
-          <div class="s10-hotel-name">Sandman Signature Plano &mdash; Frisco Hotel</div>
-          <div class="s10-hotel-desc">Two hospitality lounges, banquet and meeting facilities, 24/7 business center. Indoor heated pool, hot tub, fitness center, and on-site dining.</div>
-          <a href="#" class="s10-hotel-link">Book Your Room &rarr;</a>
+          <img src="public/images/Sandman.jpg" alt="Sandman Signature Plano Frisco Hotel" class="s10-hotel-photo">
+          <div class="s10-hotel-body">
+            <div class="s10-hotel-tag">Overflow Hotel</div>
+            <div class="s10-hotel-name">Sandman Signature<br>Plano &mdash; Frisco</div>
+            <div class="s10-hotel-sub">Plano / Frisco Corridor</div>
+            <ul class="s10-hotel-feats">
+              <li>Two hospitality lounges, banquet and meeting facilities</li>
+              <li>24/7 business center</li>
+              <li>Indoor heated pool, hot tub, fitness center, and on-site dining</li>
+            </ul>
+            <a href="#" class="s10-hotel-link">Book Your Room &rarr;</a>
+          </div>
         </div>
       </div>
     </div>
+  </div>
   </div>
 </section>
 
@@ -1226,7 +1313,11 @@
     <h2 class="s14-heading">Three Days.<br><span>One Decision.</span><br>All In.</h2>
     <p class="s14-body">You&rsquo;ve been doing this alone long enough.<br>The next RUKCON happens whether you&rsquo;re in the room or not.</p>
     <p class="s14-body2">Reserve your seat. Bring your wife. Bring your friend.<br>Bring the version of yourself that&rsquo;s been quietly waiting for a room that actually fits.</p>
-    <a href="#reserve" class="btn-gold">Reserve Your Seat</a>
+    <div class="cta-arrow-row" style="margin-bottom:0;">
+      <div class="dbl-arr"><span>&rsaquo;</span><span>&rsaquo;</span></div>
+      <a href="#reserve" class="btn-gold" style="font-size:15px;padding:18px 56px;">Reserve Your Seat</a>
+      <div class="dbl-arr right"><span>&lsaquo;</span><span>&lsaquo;</span></div>
+    </div>
     <p class="s14-date">Dallas, TX &middot; Oct 15&ndash;17, 2026</p>
   </div>
   <div class="s14-rule"></div>
@@ -1260,6 +1351,25 @@
     });
   });
 
+  // Hero countdown — Oct 15, 2026 8:00 AM Central (UTC-5)
+  (function(){
+    function pad(n){return String(n).padStart(2,'0');}
+    function tick(){
+      var target = new Date('2026-10-15T13:00:00Z');
+      var diff = target - new Date();
+      if(diff <= 0) return;
+      var d = Math.floor(diff / 86400000);
+      var h = Math.floor((diff % 86400000) / 3600000);
+      var m = Math.floor((diff % 3600000) / 60000);
+      var s = Math.floor((diff % 60000) / 1000);
+      document.getElementById('heroD').textContent = d;
+      document.getElementById('heroH').textContent = pad(h);
+      document.getElementById('heroM').textContent = pad(m);
+      document.getElementById('heroS').textContent = pad(s);
+    }
+    tick();
+    setInterval(tick, 1000);
+  })();
 
 </script>
 </body>
